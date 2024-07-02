@@ -5,6 +5,14 @@ public class Account {
 	private String type;
 	private double balance;
 
+
+	public Account(int id, String type, double balance) {
+		super(); //this is calling Object class constructor and so can be ignored. 
+		this.id = id;
+		this.type = type;
+		this.balance = balance;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -29,4 +37,12 @@ public class Account {
 		this.balance = balance;
 	}
 
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", type=" + type + ", balance=" + balance + "]";
+	}
+
+	 
+
+	
 }
