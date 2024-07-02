@@ -2,12 +2,13 @@ package com.service;
 
 import java.util.List;
 
+import com.core.Test;
 import com.core.TransferBalance;
 import com.exception.TransferException;
 import com.model.Account;
 import com.repository.AccountRepository;
 
-public class TransferService extends TransferBalance{
+public class TransferService implements TransferBalance,Test {
 
 	AccountRepository accountRepository = new AccountRepository(); 
 	@Override
@@ -83,16 +84,20 @@ public class TransferService extends TransferBalance{
 		if(status == false) 
 			throw new TransferException("Reciever account type should be either SAVINGS OR CURRENT for transfer");
 		 
-		
 		status  = validateTransferAmount(senderAccount, amount);
  		//after validateTransferAmount check of sender, if the status is still false, i vl throw exception
 
 		if(status == false) 
 			throw new TransferException("Amount to be transfered is more than the balance in sender account");
- 
 		
 		transferAmount(senderAccount, receiverAccount, amount);
 		 
+	}
+
+	@Override
+	public void m1() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
