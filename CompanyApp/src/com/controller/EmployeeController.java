@@ -1,6 +1,8 @@
 package com.controller;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.model.Employee;
@@ -40,12 +42,30 @@ public class EmployeeController {
 					System.out.println("Enter joining date: ");
 					String dateOfJoining = sc.next();
 					
-					Employee employee = new Employee(0, name, city, department, salary, LocalDate.parse(dateOfJoining));
+					Employee employee = new Employee(0, name, city, 
+							department, salary, LocalDate.parse(dateOfJoining));
 					//reach out to service 
+				try {
 					employeeService.insertEmployee(employee);
 					System.out.println("Employee record inserted..");
+				} catch (SQLException e) {
+					System.out.println("Insertion failed :" + e.getMessage()); 
+				}
+					
 					break;
 				case 2:
+					System.out.println("----------List of Employees----------");
+				List<Employee> list;
+				try {
+					list = employeeService.getAllEmployees();
+					for(Employee emp : list) {
+						System.out.println(emp);
+					}
+					System.out.println("--------------------------------------");
+				} catch (SQLException e) {
+					System.out.println("Error fetching records: " + e.getMessage());
+				}
+					
 					break;
 				case 3:
 					break;

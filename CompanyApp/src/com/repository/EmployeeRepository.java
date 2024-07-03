@@ -2,7 +2,12 @@ package com.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.model.Employee;
 
@@ -46,9 +51,50 @@ public class EmployeeRepository {
 		}
 	}
 	 
-	public void insertEmployee(Employee employee) {
+	public void insertEmployee(Employee employee) throws SQLException {
 		dbConnect();
-		String sql="";
+		String sql="insert into employee(name,salary,city,department,date_of_joining) values (?,?,?,?,?)";
+		/* Prepare the statement  */
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		/* Assign values to placeholders(?)*/
+		pstmt.setString(1, employee.getName());
+		pstmt.setDouble(2, employee.getSalary());
+		pstmt.setString(3, employee.getCity());
+		pstmt.setString(4, employee.getDepartment());
+		pstmt.setString(5, employee.getDateOfJoining().toString());
+		/* Execute statement */
+		pstmt.executeUpdate();
 		dbClose();
 	}
+
+	public List<Employee> getAllEmployees() throws SQLException {
+		dbConnect();
+		ArrayList<Employee> list = new ArrayList<>();
+		String sql="select * from employee";
+		/* Prepare the statement  */
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		/* Assign values to placeholders(?)*/
+		
+		/* Execute statement */
+		ResultSet rst = pstmt.executeQuery();
+		
+		while(rst.next()) {
+			int id = rst.getInt("id");
+			String name = rst.getString("name");
+			double salary = rst.getDouble("salary");
+			String city = rst.getString("city");
+			String department = rst.getString("department");
+			LocalDate dateOfJoining = LocalDate.parse(rst.getString("date_of_joining"));
+			
+			Employee employee = new Employee(id,name,city,department,salary,dateOfJoining); //100X 200X 300X 
+			list.add(employee);
+		}
+		dbClose();
+		return list;
+	}
 }
+
+/* 
+ * executeQuery() : fetch-select 
+ * executeUpdate() : update,insert,delete
+ * */
