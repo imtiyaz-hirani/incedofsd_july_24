@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.model.Employee;
+
 public class EmployeeRepository {
 	/*
 	 * Define variables
@@ -20,16 +22,16 @@ public class EmployeeRepository {
 		/*Step 1: Load the driver  */
 		try {
 			Class.forName(driver);
-			System.out.println("Driver loaded.. ");
+			//System.out.println("Driver loaded.. ");
 		} catch (ClassNotFoundException e) {
-			System.out.println("Driver loading error..." + e.getMessage());
+			//System.out.println("Driver loading error..." + e.getMessage());
 		}
 		/* Step 2: Establish the connection */
 		try {
 			conn = DriverManager.getConnection(url + dbName, userDB, passDB);
-			System.out.println("Connection established...");
+			//System.out.println("Connection established...");
 		} catch (SQLException e) {
-			System.out.println("Connection issue... " + e.getMessage());
+			//System.out.println("Connection issue... " + e.getMessage());
 		}
 		
 		return conn; 
@@ -38,15 +40,15 @@ public class EmployeeRepository {
 	public void dbClose() {
 		try {
 			conn.close();
-			System.out.println("Connection close");
+			//System.out.println("Connection close");
 		} catch (SQLException e) {
-			 System.out.println("conn close error " + e.getMessage());
+			 //System.out.println("conn close error " + e.getMessage());
 		}
 	}
-	
-	public static void main(String[] args) {
-		EmployeeRepository employeeRepository = new EmployeeRepository();
-		employeeRepository.dbConnect();
-		employeeRepository.dbClose();
+	 
+	public void insertEmployee(Employee employee) {
+		dbConnect();
+		String sql="";
+		dbClose();
 	}
 }

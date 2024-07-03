@@ -1,11 +1,16 @@
 package com.controller;
 
+import java.time.LocalDate;
 import java.util.Scanner;
+
+import com.model.Employee;
+import com.service.EmployeeService;
 
 public class EmployeeController {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
+		EmployeeService employeeService = new EmployeeService();
 		while(true) {
 			System.out.println("*******Employee ops*********");
 			System.out.println("1. Insert Employee");
@@ -24,6 +29,21 @@ public class EmployeeController {
 			switch(input) {
 				case 1:
 					System.out.println("Insert Employee");
+					System.out.println("Enter name: ");
+					String name = sc.next();
+					System.out.println("Enter salary: ");
+					double salary = sc.nextDouble();
+					System.out.println("Enter city: ");
+					String city = sc.next();
+					System.out.println("Enter department: ");
+					String department = sc.next();
+					System.out.println("Enter joining date: ");
+					String dateOfJoining = sc.next();
+					
+					Employee employee = new Employee(0, name, city, department, salary, LocalDate.parse(dateOfJoining));
+					//reach out to service 
+					employeeService.insertEmployee(employee);
+					System.out.println("Employee record inserted..");
 					break;
 				case 2:
 					break;
