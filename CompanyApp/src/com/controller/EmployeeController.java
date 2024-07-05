@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import com.exception.ResourceNotFoundException;
 import com.model.Employee;
 import com.service.EmployeeService;
 
@@ -68,6 +69,19 @@ public class EmployeeController {
 					
 					break;
 				case 3:
+					System.out.println("Enter employee id to delete the record");
+					int eid = sc.nextInt();
+				 
+				try {
+					employeeService.validateId(eid);
+					//if i am here, then ID is valid
+					//delete this record 
+					employeeService.deleteEmployee(eid);
+					System.out.println("Employee record deleted..");
+				} catch (SQLException | ResourceNotFoundException e) {
+					 System.out.println(e.getMessage());
+				}
+				 
 					break;
 				case 4:
 					break;

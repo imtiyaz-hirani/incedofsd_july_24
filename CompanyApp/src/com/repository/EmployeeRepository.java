@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exception.ResourceNotFoundException;
 import com.model.Employee;
 
 public class EmployeeRepository {
@@ -92,9 +93,57 @@ public class EmployeeRepository {
 		dbClose();
 		return list;
 	}
+
+	public Employee validateId(int eid) throws SQLException, ResourceNotFoundException {
+		dbConnect();
+		String sql="select * from employee where id=?";
+		/* Prepare the statement  */
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		/* Assign values to placeholders(?)*/
+		pstmt.setInt(1, eid);
+		
+		/* Execute statement */
+		ResultSet rst = pstmt.executeQuery();
+		
+		if(rst.next()) {
+			int id = rst.getInt("id");
+			String name = rst.getString("name");
+			double salary = rst.getDouble("salary");
+			String city = rst.getString("city");
+			String department = rst.getString("department");
+			LocalDate dateOfJoining = LocalDate.parse(rst.getString("date_of_joining"));
+			Employee employee = new Employee(id,name,city,department,salary,dateOfJoining);
+			dbClose();
+			return employee; 
+		}
+		else  {
+			dbClose();
+			throw new ResourceNotFoundException("Invalid Id Given: " + eid);
+		}
+		
+		
+	}
+
+	public void deleteEmployee(int eid) throws SQLException {
+		 dbConnect();
+		 String sql="delete from employee where id=?";
+		 /* Prepare the statement  */
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+		/* Assign values to placeholders(?)*/
+			pstmt.setInt(1, eid);
+		 /* Execute statement */
+			pstmt.executeUpdate();
+		 dbClose();
+		
+	}
 }
 
 /* 
  * executeQuery() : fetch-select 
  * executeUpdate() : update,insert,delete
- * */
+ * 
+ * 
+ * 
+ * dbConnect();
+		 
+*/
