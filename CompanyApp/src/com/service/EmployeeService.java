@@ -32,4 +32,9 @@ public class EmployeeService {
 		
 	}
 
+	public void updateEmployee(Employee employee) throws SQLException {
+		employeeRepository.updateEmployee(employee);
+		
+	}
+
 }

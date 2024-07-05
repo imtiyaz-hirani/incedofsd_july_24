@@ -119,9 +119,7 @@ public class EmployeeRepository {
 		else  {
 			dbClose();
 			throw new ResourceNotFoundException("Invalid Id Given: " + eid);
-		}
-		
-		
+		}	
 	}
 
 	public void deleteEmployee(int eid) throws SQLException {
@@ -134,6 +132,24 @@ public class EmployeeRepository {
 		 /* Execute statement */
 			pstmt.executeUpdate();
 		 dbClose();
+		
+	}
+
+	public void updateEmployee(Employee employee) throws SQLException {
+		dbConnect();
+		String sql="update employee SET name=?,salary=?,city=?,department=? where id=?";
+		/* Prepare the statement  */
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		/* Assign values to placeholders(?)*/
+		pstmt.setString(1, employee.getName());
+		pstmt.setDouble(2, employee.getSalary());
+		pstmt.setString(3, employee.getCity());
+		pstmt.setString(4, employee.getDepartment());
+		pstmt.setInt(5, employee.getId());
+		 /* Execute statement */
+		pstmt.executeUpdate();
+		
+		dbClose();
 		
 	}
 }

@@ -70,8 +70,7 @@ public class EmployeeController {
 					break;
 				case 3:
 					System.out.println("Enter employee id to delete the record");
-					int eid = sc.nextInt();
-				 
+					int eid = sc.nextInt();			 
 				try {
 					employeeService.validateId(eid);
 					//if i am here, then ID is valid
@@ -81,9 +80,35 @@ public class EmployeeController {
 				} catch (SQLException | ResourceNotFoundException e) {
 					 System.out.println(e.getMessage());
 				}
-				 
 					break;
 				case 4:
+					System.out.println("Enter employee ID for update");
+					eid = sc.nextInt();
+				try {
+					employee = employeeService.validateId(eid);
+					System.out.println("Existing Record in DB");
+					System.out.println(employee);
+					System.out.println("Enter New Values to Update");
+					System.out.println("Enter name: ");
+					name = sc.next();
+					System.out.println("Enter salary: ");
+					salary = sc.nextDouble();
+					System.out.println("Enter city: ");
+					city = sc.next();
+					System.out.println("Enter department: ");
+					department = sc.next();
+					//attach new values to exisitng object 
+					employee.setName(name);
+					employee.setSalary(salary);
+					employee.setCity(city);
+					employee.setDepartment(department);
+					
+					employeeService.updateEmployee(employee);
+					System.out.println("Employee record updated... ");
+					
+				} catch (SQLException | ResourceNotFoundException e) {
+					System.out.println(e.getMessage());
+				}
 					break;
 				case 5:
 					break;
