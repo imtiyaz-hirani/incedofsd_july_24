@@ -111,7 +111,46 @@ public class EmployeeController {
 				}
 					break;
 				case 5:
-					break;
+				try {
+					list = employeeService.getAllEmployees();
+					while(true){
+						System.out.println("-----Filter menu--------");
+						System.out.println("1. to filter by city");
+						System.out.println("2. to filter by salary");
+						System.out.println("3. to filter by department");
+						System.out.println("4. to filter by date of joining");
+						System.out.println("0 to exit");
+						int filterInput = sc.nextInt();
+						if(filterInput == 0)
+							break; 
+						
+						switch(filterInput) {
+						case 1: 
+							System.out.println("Enter city value: ");
+							List<Employee> filteredList = employeeService.filterEmployeeDataByCity(list, sc.next() );
+							for(Employee e : filteredList) {
+								System.out.println(e);
+							}
+							break;
+						case 2: 
+							System.out.println("Enter salary value: ");
+							break; 
+						case 3: 
+							System.out.println("Enter department value: ");
+							break; 
+						case 4: 
+							System.out.println("Enter date of joining: ");
+							break; 
+						default: 
+							System.out.println("Invalid Input.. try again pls");
+						}
+							
+					}
+					
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+				   break;
 				case 6:
 					break;
 				default: 
