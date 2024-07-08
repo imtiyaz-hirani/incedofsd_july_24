@@ -1,0 +1,419 @@
+SQL : Structured Query Language 
+
+
+select <attributes>
+from <table-name>
+<optional>
+where <condition on attributes>
+group by 
+
+
+Execution : from, where, select 
+
+where clause 
+-------------
+< , >, >= , <= , AND, OR, BETWEEN, LIKE 
+
+Q. Display employees having salary between 75000 to 90000 and dateOfJoinning between 
+range 2023-01-01 to 2024-01-01 
+
+mysql> select *
+    -> from employee
+    -> where salary BETWEEN 75000 AND 90000 AND
+    -> date_of_joining BETWEEN '2023-01-01' AND '2023-03-01';
++----+--------------+--------+------------+------------+-----------------+
+| id | name         | salary | city       | department | date_of_joining |
++----+--------------+--------+------------+------------+-----------------+
+|  4 | draco malfoy |  88000 | manchester | ADMIN      | 2023-02-01      |
++----+--------------+--------+------------+------------+-----------------+
+
+Q. Display employees having names starting with character 'h' 
+mysql> select *
+    -> from employee
+    -> where name LIKE 'h%';
++----+------------------+--------+--------+------------+-----------------+
+| id | name             | salary | city   | department | date_of_joining |
++----+------------------+--------+--------+------------+-----------------+
+|  1 | harry potter     |  90000 | london | DEV        | 2023-05-01      |
+|  3 | hermione granger |  98000 | london | DEV        | 2023-05-01      |
++----+------------------+--------+--------+------------+-----------------+
+
+Q. Display employees having 'ne' in their names.
+mysql> select *
+    -> from employee
+    -> where name LIKE '%ne%';
++----+------------------+--------+------------+------------+-----------------+
+| id | name             | salary | city       | department | date_of_joining |
++----+------------------+--------+------------+------------+-----------------+
+|  3 | hermione granger |  98000 | london     | DEV        | 2023-05-01      |
+|  5 | Neville          |  72000 | manchester | UX         | 2024-02-01      |
++----+------------------+--------+------------+------------+-----------------+
+
+
+Q. Display employees having names ending with char 'y'
+
+mysql> select *
+    -> from employee
+    -> where name LIKE '%y';
++----+----------------+--------+------------+------------+-----------------+
+| id | name           | salary | city       | department | date_of_joining |
++----+----------------+--------+------------+------------+-----------------+
+|  2 | ronald weasley |  75000 | surrey     | TESTING    | 2023-06-01      |
+|  4 | draco malfoy   |  88000 | manchester | ADMIN      | 2023-02-01      |
++----+----------------+--------+------------+------------+-----------------+
+
+Q. Display employees having names char 'y' as second last character. 
+
+mysql> select *
+    -> from employee
+    -> where name LIKE '%e_';
++----+------------------+--------+--------+------------+-----------------+
+| id | name             | salary | city   | department | date_of_joining |
++----+------------------+--------+--------+------------+-----------------+
+|  1 | harry potter     |  90000 | london | DEV        | 2023-05-01      |
+|  2 | ronald weasley   |  75000 | surrey | TESTING    | 2023-06-01      |
+|  3 | hermione granger |  98000 | london | DEV        | 2023-05-01      |
++----+------------------+--------+--------+------------+-----------------+
+
+
+Group by - Grouping Functions : 
+-------------------------------
+
+there are 5 grouping/aggregate functions in sql: 
+- min
+- max
+- sum
+- count
+- average
+
+Q. Display number of employees living in each city. 
+
+
+10000 employees: 12 cities 
+
+New York    : 1244
+Madrid      : 900 
+London
+Mumbai 
+
+
+mysql> select * from employee;
++----+------------------+--------+------------+------------+-----------------+
+| id | name             | salary | city       | department | date_of_joining |
++----+------------------+--------+------------+------------+-----------------+
+|  1 | harry potter     |  90000 | london     | DEV        | 2023-05-01      |
+|  2 | ronald weasley   |  75000 | surrey     | TESTING    | 2023-06-01      |
+|  3 | hermione granger |  98000 | london     | DEV        | 2023-05-01      |
+|  4 | draco malfoy     |  88000 | manchester | ADMIN      | 2023-02-01      |
+|  5 | Neville          |  72000 | manchester | UX         | 2024-02-01      |
++----+------------------+--------+------------+------------+-----------------+
+
+mysql> select *
+    -> from employee
+    -> group by city;
+
+city=london 
+|  1 | harry potter     |  90000 | london     | DEV        | 2023-05-01      |
+|  3 | hermione granger |  98000 | london     | DEV        | 2023-05-01      |
+
+
+city=surrey
+|  2 | ronald weasley   |  75000 | surrey     | TESTING    | 2023-06-01      |
+
+city=Manchester
+|  4 | draco malfoy     |  88000 | manchester | ADMIN      | 2023-02-01      |
+|  5 | Neville          |  72000 | manchester | UX         | 2024-02-01      |
+
+
+mysql> select city,COUNT(*) as 'Number_of_Employees'
+    -> from employee
+    -> group by city
+    -> order by Number_of_Employees ASC;
++------------+---------------------+
+| city       | Number_of_Employees |
++------------+---------------------+
+| surrey     |                   1 |
+| london     |                   2 |
+| manchester |                   2 |
++------------+---------------------+
+
+Q. display minimum salary drawn by employees in each department. 
+
+mysql> select department, MIN(salary) as 'Min Salary' from employee group by department;
++------------+------------+
+| department | Min Salary |
++------------+------------+
+| ADMIN      |      88000 |
+| DEV        |      90000 |
+| TESTING    |      75000 |
+| UX         |      72000 |
++------------+------------+
+
+
+Q. display total salary of Employees for each department. display only those records whose total_salary is greater than 150000 
+
+mysql> select * from employee;
++----+------------------+--------+------------+------------+-----------------+
+| id | name             | salary | city       | department | date_of_joining |
++----+------------------+--------+------------+------------+-----------------+
+|  1 | harry potter     |  90000 | london     | DEV        | 2023-05-01      |
+|  2 | ronald weasley   |  75000 | surrey     | TESTING    | 2023-06-01      |
+|  3 | hermione granger |  98000 | london     | DEV        | 2023-05-01      |
+|  4 | draco malfoy     |  88000 | manchester | ADMIN      | 2023-02-01      |
+|  5 | Neville          |  72000 | manchester | UX         | 2024-02-01      |
++----+------------------+--------+------------+------------+-----------------+
+
+group by department; 
+
+department = DEV
+|  1 | harry potter     |  90000 | london     | DEV        | 2023-05-01      |
+|  3 | hermione granger |  98000 | london     | DEV        | 2023-05-01      |
+
+
+department = TESTING
+|  2 | ronald weasley   |  75000 | surrey     | TESTING    | 2023-06-01      |
+
+department = ADMIN
+|  4 | draco malfoy     |  88000 | manchester | ADMIN      | 2023-02-01      |
+
+department=UX
+|  5 | Neville          |  72000 | manchester | UX         | 2024-02-01      |
+
+SUM(salary) as 'total_salary'
+
+
+mysql> select department, SUM(salary) as total_salary
+    -> from employee
+    -> group by department;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| ADMIN      |        88000 |
+| DEV        |       188000 |
+| TESTING    |        75000 |
+| UX         |        72000 |
++------------+--------------+
+
+display only those records whose total_salary is greater than 150000 
+
+mysql> select department, SUM(salary) as total_salary
+    -> from employee
+    -> where SUM(salary) > 150000
+    -> group by department;
+ERROR 1111 (HY000): Invalid use of group function
+
+
+mysql> select department, SUM(salary) as total_salary
+    -> from employee
+    -> group by department
+    -> having total_salary > 150000;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| DEV        |       188000 |
++------------+--------------+
+
+limit statement
+---------------
+10 million 
+
+requirement
+1. min_limit max_limit   ex. 1 to 100 
+2. First 100 records 
+
+limit(offset,numer_of_records) : start after offset 
+
+mysql> select * from employee limit 0,3; -- start after 0 and display 3 records 
++----+------------------+--------+--------+------------+-----------------+
+| id | name             | salary | city   | department | date_of_joining |
++----+------------------+--------+--------+------------+-----------------+
+|  1 | harry potter     |  90000 | london | DEV        | 2023-05-01      |
+|  2 | ronald weasley   |  75000 | surrey | TESTING    | 2023-06-01      |
+|  3 | hermione granger |  98000 | london | DEV        | 2023-05-01      |
++----+------------------+--------+--------+------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee limit 3,3;  -- start after 3 and display 3 records 
++----+--------------+--------+------------+------------+-----------------+
+| id | name         | salary | city       | department | date_of_joining |
++----+--------------+--------+------------+------------+-----------------+
+|  4 | draco malfoy |  88000 | manchester | ADMIN      | 2023-02-01      |
+|  5 | Neville      |  72000 | manchester | UX         | 2024-02-01      |
++----+--------------+--------+------------+------------+-----------------+
+
+Display first n records 
+
+mysql> select * from employee limit 3;
++----+------------------+--------+--------+------------+-----------------+
+| id | name             | salary | city   | department | date_of_joining |
++----+------------------+--------+--------+------------+-----------------+
+|  1 | harry potter     |  90000 | london | DEV        | 2023-05-01      |
+|  2 | ronald weasley   |  75000 | surrey | TESTING    | 2023-06-01      |
+|  3 | hermione granger |  98000 | london | DEV        | 2023-05-01      |
++----+------------------+--------+--------+------------+-----------------+
+
+Syntax
+-------
+select  <attributes> <grouping functions>
+from  <table name>
+where <condition on attributes>
+group by <attribute>
+having <condition on grouping functions>
+order by <attributes> <grouping functions>  ASC | DESC 
+limit offset,size  /  limit size 
+
+
+Normalization in DB
+-------------------
+
+Sr.  student_name  student_address  student_email  course_name  course_credits  course_fee  department
+
+1    harry potter    London      harry@hogwards.com   Java Pro     80            5000  		IT
+2    ronald weasley  surrey      ron@hogwards.com     DBMS         50            3000  		CMPS
+3    hermione        London      hermione@hogwards.com   Java Pro 80            5000  		IT
+
+
+3 Anomalies 
+
+1. Insertion Anomaly 
+
+
+1    harry potter    London      harry@hogwards.com   React.Js     50            3000  		IT
+
+id  name
+1   harry
+1   harry 
+
+Without normalizing the table, we cannot insert new record for existing student as id cannot be duplicated. 
+
+2. Deletion Anomaly 
+
+select distinct course_name
+from college; 
+
+Java Pro
+DBMS 
+
+- delete record with id=2 
+1    harry potter    London      harry@hogwards.com   Java Pro     80            5000  		IT
+3    hermione        London      haermione@hogwards.com   Java Pro 80            5000  		IT
+
+select distinct course_name
+from college; 
+
+Java Pro
+
+3. Update Anomaly 
+
+Can u update course_credits of course 'Java Pro' from 80 to 100. 
+
+update employee 
+SET course_credits = 100
+where course_name='Java pro'
+
+This query will update many records which is not good for the performance of the query.  
+
+
+Solution
+--------
+
+1NF : IN NF split the tables as per their domains or dependencies. All tables must have primary key. 
+
+student(id,name,address,email)
+course(id,name,credits,fee)
+department(id,name) 
+
+2NF : split the attributes into multiple attributes, if possible - bifurcation of attributes 
+
+address(id,steet,pro_number,city,pincode)
+
+
+student(id,name,email)
+course(id,name,credits,fee)
+department(id,name) 
+address(id,steet,pro_number,city,pincode)
+
+
+3NF : connect tables - establish relationships between tables 
+
+4 types of relationships
+------------------------
+1:1
+1:M
+M:1
+M:M
+
+
+student(id,name,email)
+address(id,steet,pro_number,city,pincode)
+
+student* -- address        student -- address*
+         1:1			    M:1
+
+		1:1   
+		M:1
+		---
+		M:1 
+
+take the primary of relation pointing towards 1 and put it in many table 
+student(id,name,email,address_id)
+
+  address_id is a Foreign Key 
+
+
+
+course(id,name,credits,fee)
+department(id,name) 
+
+
+course* -- department 		course -- department 
+       1:1				M:1	
+
+			1:1
+			M:1
+			---
+			M:1
+
+
+course(id,name,credits,fee,department_id)
+department(id,name) 
+
+ department_id is a Foreign Key 
+
+
+student(id,name,email)
+course(id,name,credits,fee)
+
+		student* --- course		student --- course*
+		        1:M				  M:1
+		
+				1:M
+				M:1
+				---
+				M:M
+
+In Many to Many relationship, create a separate table. Add primary keys of both the tables in that relationship table. 
+Both of them combined together will form a key called as composite key. 
+
+				student_course
+				 (student_id,course_id)
+
+BCFN : Boyce  Codd Normal Form 
+
+enroll_date 
+
+				student_course
+				 (student_id,course_id,enroll_date)
+
+student_id,course_id,enroll_date can combine and make a unique super key. 
+
+
+Final Schema 
+------------
+student(id,name,email,address_id)
+address(id,steet,pro_number,city,pincode)
+course(id,name,credits,fee,department_id)
+department(id,name) 
+student_course(student_id,course_id,enroll_date)
+
+
