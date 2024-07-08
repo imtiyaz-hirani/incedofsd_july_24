@@ -1,5 +1,5 @@
 
-INSERT INTO address (id, street, pro_number, city, pincode) VALUES
+INSERT INTO address (id, street, pnum, city, pincode) VALUES
 (1, '123 Maple St', 'Apt 1', 'Springfield', '62701'),
 (2, '456 Oak St', 'Suite 2B', 'Chicago', '60602'),
 (3, '789 Pine St', 'Unit 3', 'Naperville', '60540'),
@@ -27,7 +27,7 @@ INSERT INTO student (id, name, email, address_id) VALUES
 
 
 
-INSERT INTO department (id, name) VALUES
+INSERT INTO department (id, department) VALUES
 (1, 'Computer Science'),
 (2, 'Mathematics'),
 (3, 'Chemistry'),
@@ -35,7 +35,7 @@ INSERT INTO department (id, name) VALUES
 (5, 'Psychology');
 
 
-INSERT INTO course (id, name, credits, fee, department_id) VALUES
+INSERT INTO course (id, name, crefits, fee, department_id) VALUES
 (1, 'Introduction to Computer Science', 3, 500, 1),
 (2, 'Calculus I', 4, 600, 2),
 (3, 'General Chemistry', 3, 550, 3),
@@ -51,7 +51,7 @@ INSERT INTO course (id, name, credits, fee, department_id) VALUES
 
 
 
-INSERT INTO student_course (student_id, course_id, enroll_date) VALUES
+INSERT INTO student_course (student_id, course_id, date_of_joining) VALUES
 (1, 1, '2024-01-15'),
 (1, 2, '2024-02-20'),
 (2, 3, '2024-01-25'),
