@@ -193,7 +193,6 @@ INSERT INTO stock (id, count) VALUES
 (20, 280);
 
 
-
 INSERT INTO customer (id, name, email, address_id) VALUES
 (1, 'John Doe', 'john.doe@example.com', 1),
 (2, 'Jane Smith', 'jane.smith@example.com', 2),
@@ -205,6 +204,22 @@ INSERT INTO customer (id, name, email, address_id) VALUES
 (8, 'Grace Hall', 'grace.hall@example.com', 8),
 (9, 'Henry Adams', 'henry.adams@example.com', 9),
 (10, 'Ivy Baker', 'ivy.baker@example.com', 10);
+
+
+INSERT INTO vendor (id, name, city) VALUES
+(1, 'Vendor A', 'City X'),
+(2, 'Vendor B', 'City Y'),
+(3, 'Vendor C', 'City Z'),
+(4, 'Vendor D', 'City W'),
+(5, 'Vendor E', 'City V');
+
+ 
+INSERT INTO category (id,name) values 
+(1,'category 1'),
+(2,'category 2'),
+(3,'category 3'),
+(4,'category 4'),
+(5,'category 5');
 
 
 INSERT INTO product (id, title, description, price, isFeatured, category_id, vendor_id, stock_id) VALUES
@@ -278,13 +293,6 @@ INSERT INTO customer_product (customer_id, product_id, date_of_purchase, coupon,
 (3, 9, '2023-08-14', 'SAVE10', 2),
 (3, 10, '2023-08-15', 'SAVE20', 1);
 
-
-INSERT INTO vendor (id, name, city) VALUES
-(1, 'Vendor A', 'City X'),
-(2, 'Vendor B', 'City Y'),
-(3, 'Vendor C', 'City Z'),
-(4, 'Vendor D', 'City W'),
-(5, 'Vendor E', 'City V');
 
 
 INSERT INTO review (id, message, rating, customer_id, product_id) VALUES
