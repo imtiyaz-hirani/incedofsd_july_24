@@ -1,0 +1,345 @@
+ 
+-- -----------------------------------------------------
+-- Schema ecom_incedojuly24
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema ecom_incedojuly24
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ecom_incedojuly24` DEFAULT CHARACTER SET utf8 ;
+USE `ecom_incedojuly24` ;
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `pnum` VARCHAR(45) NULL,
+  `street` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  `pincode` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`customer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`customer` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `address_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_customer_address_idx` (`address_id` ASC)    ,
+  CONSTRAINT `fk_customer_address`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `ecom_incedojuly24`.`address` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`category`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`category` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`vendor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`vendor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `city` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`stock`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`stock` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `count` INT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`product` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NULL,
+  `description` VARCHAR(1000) NULL,
+  `price` DOUBLE NULL,
+  `isFeatured` TINYINT NULL,
+  `category_id` INT NOT NULL,
+  `vendor_id` INT NOT NULL,
+  `stock_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_product_category1_idx` (`category_id` ASC)    ,
+  INDEX `fk_product_vendor1_idx` (`vendor_id` ASC)    ,
+  INDEX `fk_product_stock1_idx` (`stock_id` ASC)    ,
+  CONSTRAINT `fk_product_category1`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `ecom_incedojuly24`.`category` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_product_vendor1`
+    FOREIGN KEY (`vendor_id`)
+    REFERENCES `ecom_incedojuly24`.`vendor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_product_stock1`
+    FOREIGN KEY (`stock_id`)
+    REFERENCES `ecom_incedojuly24`.`stock` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`review`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`review` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `message` VARCHAR(45) NULL,
+  `rating` VARCHAR(45) NULL,
+  `customer_id` INT NOT NULL,
+  `product_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_review_customer1_idx` (`customer_id` ASC)    ,
+  INDEX `fk_review_product1_idx` (`product_id` ASC)    ,
+  CONSTRAINT `fk_review_customer1`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `ecom_incedojuly24`.`customer` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_review_product1`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `ecom_incedojuly24`.`product` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ecom_incedojuly24`.`customer_product`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ecom_incedojuly24`.`customer_product` (
+  `customer_id` INT NULL,
+  `product_id` INT NULL,
+  `date_of_purchase` VARCHAR(45) NULL,
+  `coupon` VARCHAR(45) NULL,
+  `quantity` INT NULL,
+  INDEX `fk_customer_has_product_product1_idx` (`product_id` ASC)    ,
+  INDEX `fk_customer_has_product_customer1_idx` (`customer_id` ASC)    ,
+  CONSTRAINT `fk_customer_has_product_customer1`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `ecom_incedojuly24`.`customer` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_customer_has_product_product1`
+    FOREIGN KEY (`product_id`)
+    REFERENCES `ecom_incedojuly24`.`product` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+
+Insert Statements 
+
+INSERT INTO address (id, pnum, street, city, pincode) VALUES
+(1, '12345', 'Elm Street', 'Springfield', '12345'),
+(2, '23456', 'Oak Street', 'Shelbyville', '23456'),
+(3, '34567', 'Maple Avenue', 'Capital City', '34567'),
+(4, '45678', 'Pine Lane', 'Ogdenville', '45678'),
+(5, '56789', 'Cedar Road', 'North Haverbrook', '56789'),
+(6, '67890', 'Birch Boulevard', 'Brockway', '67890'),
+(7, '78901', 'Walnut Way', 'Cypress Creek', '78901'),
+(8, '89012', 'Ash Alley', 'Waverly Hills', '89012'),
+(9, '90123', 'Cherry Court', 'Springfield', '90123'),
+(10, '01234', 'Willow Walk', 'Shelbyville', '01234');
+
+INSERT INTO stock (id, count) VALUES
+(1, 100),
+(2, 200),
+(3, 150),
+(4, 300),
+(5, 250),
+(6, 180),
+(7, 220),
+(8, 160),
+(9, 140),
+(10, 110),
+(11, 90),
+(12, 130),
+(13, 170),
+(14, 190),
+(15, 210),
+(16, 230),
+(17, 240),
+(18, 260),
+(19, 270),
+(20, 280);
+
+
+
+INSERT INTO customer (id, name, email, address_id) VALUES
+(1, 'John Doe', 'john.doe@example.com', 1),
+(2, 'Jane Smith', 'jane.smith@example.com', 2),
+(3, 'Alice Johnson', 'alice.johnson@example.com', 3),
+(4, 'Bob Brown', 'bob.brown@example.com', 4),
+(5, 'Charlie Davis', 'charlie.davis@example.com', 5),
+(6, 'Emily Evans', 'emily.evans@example.com', 6),
+(7, 'Frank Green', 'frank.green@example.com', 7),
+(8, 'Grace Hall', 'grace.hall@example.com', 8),
+(9, 'Henry Adams', 'henry.adams@example.com', 9),
+(10, 'Ivy Baker', 'ivy.baker@example.com', 10);
+
+
+INSERT INTO product (id, title, description, price, isFeatured, category_id, vendor_id, stock_id) VALUES
+(1, 'Product 1', 'Description 1', 10.99, 1, 1, 1, 1),
+(2, 'Product 2', 'Description 2', 12.99, 0, 2, 2, 2),
+(3, 'Product 3', 'Description 3', 15.99, 1, 3, 3, 3),
+(4, 'Product 4', 'Description 4', 8.99, 0, 4, 4, 4),
+(5, 'Product 5', 'Description 5', 6.99, 1, 5, 5, 5),
+(6, 'Product 6', 'Description 6', 7.99, 0, 1, 1, 6),
+(7, 'Product 7', 'Description 7', 9.99, 1, 2, 2, 7),
+(8, 'Product 8', 'Description 8', 11.99, 0, 3, 3, 8),
+(9, 'Product 9', 'Description 9', 13.99, 1, 4, 4, 9),
+(10, 'Product 10', 'Description 10', 14.99, 0, 5, 5, 10),
+(11, 'Product 11', 'Description 11', 16.99, 1, 1, 1, 11),
+(12, 'Product 12', 'Description 12', 18.99, 0, 2, 2, 12),
+(13, 'Product 13', 'Description 13', 19.99, 1, 3, 3, 13),
+(14, 'Product 14', 'Description 14', 20.99, 0, 4, 4, 14),
+(15, 'Product 15', 'Description 15', 22.99, 1, 5, 5, 15),
+(16, 'Product 16', 'Description 16', 23.99, 0, 1, 1, 16),
+(17, 'Product 17', 'Description 17', 24.99, 1, 2, 2, 17),
+(18, 'Product 18', 'Description 18', 25.99, 0, 3, 3, 18),
+(19, 'Product 19', 'Description 19', 26.99, 1, 4, 4, 19),
+(20, 'Product 20', 'Description 20', 27.99, 0, 5, 5, 20);
+
+
+INSERT INTO customer_product (customer_id, product_id, date_of_purchase, coupon, quantity) VALUES
+(1, 1, '2023-07-01', 'SAVE10', 2),
+(1, 2, '2023-07-02', 'SAVE20', 1),
+(2, 3, '2023-07-03', 'SAVE10', 3),
+(2, 4, '2023-07-04', 'SAVE20', 1),
+(3, 5, '2023-07-05', 'SAVE10', 2),
+(3, 6, '2023-07-06', 'SAVE20', 1),
+(4, 7, '2023-07-07', 'SAVE10', 3),
+(4, 8, '2023-07-08', 'SAVE20', 1),
+(5, 9, '2023-07-09', 'SAVE10', 2),
+(5, 10, '2023-07-10', 'SAVE20', 1),
+(6, 11, '2023-07-11', 'SAVE10', 3),
+(6, 12, '2023-07-12', 'SAVE20', 1),
+(7, 13, '2023-07-13', 'SAVE10', 2),
+(7, 14, '2023-07-14', 'SAVE20', 1),
+(8, 15, '2023-07-15', 'SAVE10', 3),
+(8, 16, '2023-07-16', 'SAVE20', 1),
+(9, 17, '2023-07-17', 'SAVE10', 2),
+(9, 18, '2023-07-18', 'SAVE20', 1),
+(10, 19, '2023-07-19', 'SAVE10', 3),
+(10, 20, '2023-07-20', 'SAVE20', 1),
+(1, 3, '2023-07-21', 'SAVE10', 2),
+(1, 4, '2023-07-22', 'SAVE20', 1),
+(2, 5, '2023-07-23', 'SAVE10', 3),
+(2, 6, '2023-07-24', 'SAVE20', 1),
+(3, 7, '2023-07-25', 'SAVE10', 2),
+(3, 8, '2023-07-26', 'SAVE20', 1),
+(4, 9, '2023-07-27', 'SAVE10', 3),
+(4, 10, '2023-07-28', 'SAVE20', 1),
+(5, 11, '2023-07-29', 'SAVE10', 2),
+(5, 12, '2023-07-30', 'SAVE20', 1),
+(6, 13, '2023-07-31', 'SAVE10', 3),
+(6, 14, '2023-08-01', 'SAVE20', 1),
+(7, 15, '2023-08-02', 'SAVE10', 2),
+(7, 16, '2023-08-03', 'SAVE20', 1),
+(8, 17, '2023-08-04', 'SAVE10', 3),
+(8, 18, '2023-08-05', 'SAVE20', 1),
+(9, 19, '2023-08-06', 'SAVE10', 2),
+(9, 20, '2023-08-07', 'SAVE20', 1),
+(10, 1, '2023-08-08', 'SAVE10', 3),
+(10, 2, '2023-08-09', 'SAVE20', 1),
+(1, 5, '2023-08-10', 'SAVE10', 2),
+(1, 6, '2023-08-11', 'SAVE20', 1),
+(2, 7, '2023-08-12', 'SAVE10', 3),
+(2, 8, '2023-08-13', 'SAVE20', 1),
+(3, 9, '2023-08-14', 'SAVE10', 2),
+(3, 10, '2023-08-15', 'SAVE20', 1);
+
+
+INSERT INTO vendor (id, name, city) VALUES
+(1, 'Vendor A', 'City X'),
+(2, 'Vendor B', 'City Y'),
+(3, 'Vendor C', 'City Z'),
+(4, 'Vendor D', 'City W'),
+(5, 'Vendor E', 'City V');
+
+
+INSERT INTO review (id, message, rating, customer_id, product_id) VALUES
+(1, 'Great product!', 5, 1, 1),
+(2, 'Not bad', 4, 2, 2),
+(3, 'Could be better', 3, 3, 3),
+(4, 'Excellent quality', 5, 4, 4),
+(5, 'Very satisfied', 4, 5, 5),
+(6, 'Highly recommend', 5, 6, 6),
+(7, 'Not what I expected', 2, 7, 7),
+(8, 'Worth the price', 4, 8, 8),
+(9, 'Just okay', 3, 9, 9),
+(10, 'Fantastic!', 5, 10, 10),
+(11, 'Great value', 4, 1, 11),
+(12, 'Will buy again', 5, 2, 12),
+(13, 'Disappointed', 2, 3, 13),
+(14, 'Very good', 4, 4, 14),
+(15, 'Love it', 5, 5, 15),
+(16, 'Not worth it', 2, 6, 16),
+(17, 'Average', 3, 7, 17),
+(18, 'Exceeded expectations', 5, 8, 18),
+(19, 'Terrible', 1, 9, 19),
+(20, 'Pretty good', 4, 10, 20),
+(21, 'Amazing product', 5, 1, 1),
+(22, 'Not my favorite', 3, 2, 2),
+(23, 'I like it', 4, 3, 3),
+(24, 'Very happy', 5, 4, 4),
+(25, 'Nice quality', 4, 5, 5),
+(26, 'Best purchase', 5, 6, 6),
+(27, 'Okay product', 3, 7, 7),
+(28, 'Good value', 4, 8, 8),
+(29, 'Satisfied', 4, 9, 9),
+(30, 'Excellent', 5, 10, 10),
+(31, 'Superb', 5, 1, 11),
+(32, 'Not bad at all', 4, 2, 12),
+(33, 'Good but not great', 3, 3, 13),
+(34, 'Very pleased', 5, 4, 14),
+(35, 'Perfect', 5, 5, 15),
+(36, 'Mediocre', 3, 6, 16),
+(37, 'Quite good', 4, 7, 17),
+(38, 'Love this product', 5, 8, 18),
+(39, 'Wouldn\'t buy again', 2, 9, 19),
+(40, 'Impressed', 4, 10, 20),
+(41, 'Top-notch', 5, 1, 1),
+(42, 'Decent', 3, 2, 2),
+(43, 'It\'s okay', 3, 3, 3),
+(44, 'Very nice', 5, 4, 4),
+(45, 'Pretty good buy', 4, 5, 5),
+(46, 'Absolutely love it', 5, 6, 6),
+(47, 'Expected more', 2, 7, 7),
+(48, 'Reasonable quality', 4, 8, 8),
+(49, 'Fairly good', 4, 9, 9),
+(50, 'Just fine', 3, 10, 10);
+
+
+
+
+
