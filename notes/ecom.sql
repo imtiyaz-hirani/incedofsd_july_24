@@ -233,7 +233,7 @@ where id IN (select p.id
 			 where p.isfeatured = true ) 
 AND id IN (select p.id 
 			from product p JOIN vendor v ON p.vendor_id = v.id
-			group by p.title 
+			group by p.id 
 			having count(*) >=1)
 AND id IN (select p.id 
 			from product p JOIN stock s ON p.stock_id = s.id
@@ -254,33 +254,6 @@ AND id IN (select cp.product_id
 1. product must belong to one of following categories 'category 2','category 4','category 5' 
 2. product must have avg review rating more than 4.5 
 3. must be bought by atleast 2 customers 
-*/
-
-select v.id,v.name 
-from vendor v 
-where id IN (select DISTINCT v.id   
-			from product p 
-			JOIN category c ON p.category_id = c.id 
-			JOIN vendor v ON p.vendor_id = v.id
-			where c.name IN ('category 2','category 4','category 5')) 
-AND id IN (select DISTINCT v.id 
-			from product p 
-					JOIN review r ON p.id = r.product_id 
-					JOIN vendor v ON p.vendor_id = v.id
-			group by p.id
-			having avg(r.rating) > 4.5) 
-AND id IN (select distinct v.id 
-			from product p 
-				JOIN customer_product cp ON p.id = cp.product_id 
-				JOIN customer c ON cp.customer_id = c.id
-				JOIN vendor v ON p.vendor_id = v.id
-			group by p.id 
-			having count(*) >=3); 
-
-/* 
-Ouput: 
-	4	Vendor D
-	5	Vendor E
 */
 /* product must belong to one of following categories 'category 2','category 4','category 5'  */
 
@@ -312,3 +285,31 @@ group by p.id
 having count(*) >=3;
  -- 5 6 7 8 9 10 :  products 
  -- 5 1 2 3 4 : vendors 
+ 
+ -- integrated final query 
+select v.id,v.name 
+from vendor v 
+where id IN (select DISTINCT v.id   
+			from product p 
+			JOIN category c ON p.category_id = c.id 
+			JOIN vendor v ON p.vendor_id = v.id
+			where c.name IN ('category 2','category 4','category 5')) 
+AND id IN (select DISTINCT v.id 
+			from product p 
+					JOIN review r ON p.id = r.product_id 
+					JOIN vendor v ON p.vendor_id = v.id
+			group by p.id
+			having avg(r.rating) > 4.5) 
+AND id IN (select distinct v.id 
+			from product p 
+				JOIN customer_product cp ON p.id = cp.product_id 
+				JOIN customer c ON cp.customer_id = c.id
+				JOIN vendor v ON p.vendor_id = v.id
+			group by p.id 
+			having count(*) >=3); 
+
+/* 
+Ouput: 
+	4	Vendor D
+	5	Vendor E
+*/
