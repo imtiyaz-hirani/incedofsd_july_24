@@ -5,6 +5,7 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import com.hibernate.exception.ResourceNotFoundException;
 import com.hibernate.model.Address;
 import com.hibernate.model.Student;
 
@@ -61,6 +62,27 @@ public class StudentService {
 		/*Insert student */
 		entityManager.persist(student);
 		transaction.commit();
+	}
+
+	public void deleteStudent() throws ResourceNotFoundException {
+		
+		 System.out.println("Enter student id to delete");
+		 int studentId = sc.nextInt();
+		 /* Fetch student object and validate this ID. */
+		 transaction.begin();
+		 Student studentObj =  entityManager.find(Student.class, studentId);
+		 transaction.commit();
+		 if(studentObj == null)
+			 throw new ResourceNotFoundException("Invalid id given...");
+		 
+		 Address addressObj = studentObj.getAddress();
+		 transaction.begin();
+		 /* delete student record */
+		 entityManager.remove(studentObj);
+		 /* delete address record */
+		 entityManager.remove(addressObj);
+		 transaction.commit();
+		
 	}
 
 }

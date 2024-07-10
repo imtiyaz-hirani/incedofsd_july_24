@@ -37,12 +37,11 @@ public class App {
 			transaction = entityManager.getTransaction();
 
 			StudentService studentService = new StudentService(entityManager,transaction);
-			AddressService addressService = new AddressService(entityManager,transaction);
-			
+ 			
 			while(true) {
-		 
 				System.out.println("***********COllege App**************");
 				System.out.println("1. Add Student");
+				System.out.println("2. Delete Student Record");
 				System.out.println("0.Exit");
 				int input = sc.nextInt();
 				if(input == 0) {
@@ -59,6 +58,16 @@ public class App {
 					catch(Exception e) {
 						System.out.println(e.getMessage());
 					}
+					break; 
+				case 2: 
+					try {
+						studentService.deleteStudent();
+						System.out.println("Student deleted...");
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					
 					break; 
 				default: 
 					System.out.println("invalid input given.. try again");
