@@ -36,55 +36,29 @@ public class App {
 			/* Step 3: Prepare EntityTransaction */
 			transaction = entityManager.getTransaction();
 
-			StudentService studentService = new StudentService(entityManager);
-			AddressService addressService = new AddressService(entityManager);
+			StudentService studentService = new StudentService(entityManager,transaction);
+			AddressService addressService = new AddressService(entityManager,transaction);
 			
 			while(true) {
-				transaction.begin();
+		 
 				System.out.println("***********COllege App**************");
 				System.out.println("1. Add Student");
 				System.out.println("0.Exit");
 				int input = sc.nextInt();
 				if(input == 0) {
 					System.out.println("Exiting.. Thanx...");
-					transaction.commit();
 					break; 
 				}
 				
 				switch(input) {
 				case 1: 
-					Student student = new Student(); 
-					Address address = new Address(); 
-					System.out.println("Enter student name: ");
-					student.setName(sc.next());
-					System.out.println("Enter student email: ");
-					student.setEmail(sc.next());
-					System.out.println("Enter student city: ");
-					address.setCity(sc.next());
-					System.out.println("Enter student pincode: ");
-					address.setPincode(sc.next());
-					System.out.println("Enter student pnum: ");
-					address.setPnum(sc.next());
-					System.out.println("Enter student street: ");
-					address.setStreet (sc.next());
-					
-					/*insert address first */
-					//generate random id for address 
-					int addressId = (int)(Math.random() * 1000000); 
-					address.setId(addressId);
-					  
-					addressService.insertAddress(address); //final inserted obj of address
-					
-					/* attach address to student */
-					student.setAddress(address);
-					 //generate random student id 
-					int studentId = (int)(Math.random() * 1000000); 
-					student.setId(studentId);
-					 
-					/*Insert student */
-					 studentService.insertStudent(student);
-					System.out.println("Student added in DB");
-					transaction.commit();
+					try {
+						studentService.insertStudent();
+						System.out.println("Student added in DB");
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
 					break; 
 				default: 
 					System.out.println("invalid input given.. try again");
