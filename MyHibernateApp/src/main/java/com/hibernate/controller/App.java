@@ -84,6 +84,24 @@ public class App {
 						System.out.println(e.getMessage());
 					}
 					break;
+				case 4: 
+					try {
+						courseService.addDepartment();
+						System.out.println("Department added...");
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break; 
+				case 5: 
+					try {
+						courseService.addCourse();
+						System.out.println("Course added...");
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
 				default: 
 					System.out.println("invalid input given.. try again");
 					break; 
