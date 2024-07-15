@@ -12,6 +12,7 @@ import com.hibernate.model.Course;
 import com.hibernate.model.Department;
 import com.hibernate.model.Student;
 import com.hibernate.service.CourseService;
+import com.hibernate.service.EnrollService;
 import com.hibernate.service.StudentService;
 
 public class App {
@@ -39,8 +40,9 @@ public class App {
 
 			StudentService studentService = new StudentService(entityManager,transaction);
  			CourseService courseService = new CourseService(entityManager, transaction);
- 			
-			while(true) {
+ 			EnrollService enrollService = new EnrollService(entityManager, transaction);
+			
+ 			while(true) {
 				System.out.println("***********COllege App**************");
 				System.out.println("1. Add Student");
 				System.out.println("2. Delete Student Record");
@@ -50,6 +52,8 @@ public class App {
 				System.out.println("6. List of Students");
 				System.out.println("7. List of Courses");
 				System.out.println("8. Enroll student in Course");
+				System.out.println("9. Enrollment stats for all courses");
+				
 				
 				System.out.println("0.Exit");
 				int input = sc.nextInt();
@@ -129,6 +133,15 @@ public class App {
 					try {
 						studentService.enrollStudentInCourse();
 						System.out.println("student enrolled...");
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
+				case 9: 
+					try {
+						List<?> list = enrollService.getEnrollStudentForAllCourses();
+						list.stream().forEach(e-> System.out.println(e));
 					}
 					catch(Exception e) {
 						System.out.println(e.getMessage());
