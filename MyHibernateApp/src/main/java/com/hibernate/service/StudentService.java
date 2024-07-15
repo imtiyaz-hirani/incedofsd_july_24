@@ -1,5 +1,6 @@
 package com.hibernate.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +10,9 @@ import javax.persistence.Query;
 
 import com.hibernate.exception.ResourceNotFoundException;
 import com.hibernate.model.Address;
+import com.hibernate.model.Course;
 import com.hibernate.model.Student;
+import com.hibernate.model.StudentCourse;
 
 public class StudentService {
 
@@ -94,5 +97,39 @@ public class StudentService {
 		transaction.commit();
 		return list;
 	}
+
+	public void enrollStudentInCourse() throws ResourceNotFoundException {
+		
+		  /*1. Take student Id from user and validate it  */
+		System.out.println("Enter Student ID");
+		int studentId = sc.nextInt();
+		transaction.begin();
+		Student studentObj = entityManager.find(Student.class, studentId);
+		transaction.commit();
+		if(studentObj == null)
+			throw new ResourceNotFoundException("Invalid student ID given");
+		
+		 /* 2. Take course  Id from user and validate it */
+		System.out.println("Enter Course ID");
+		int courseId = sc.nextInt();
+		transaction.begin();
+		Course courseObj = entityManager.find(Course.class, courseId);
+		transaction.commit();
+		if(courseObj == null)
+			throw new ResourceNotFoundException("Invalid course ID given");
+		
+		/* 3. Attach student and course objs to StudentCourse obj along with date */
+		StudentCourse sc = new StudentCourse();
+		sc.setStudent(studentObj);
+		sc.setCourse(courseObj);
+		sc.setDateOfJoining(LocalDate.now());
+		
+		/* 4. persist studentcourse*/
+		transaction.begin();
+		entityManager.persist(sc);
+		transaction.commit();
+	}
+
+	
 
 }

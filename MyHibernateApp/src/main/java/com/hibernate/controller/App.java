@@ -125,6 +125,15 @@ public class App {
 						System.out.println(e.getMessage());
 					}
 					break;
+				case 8: 
+					try {
+						studentService.enrollStudentInCourse();
+						System.out.println("student enrolled...");
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
 				default: 
 					System.out.println("invalid input given.. try again");
 					break; 
