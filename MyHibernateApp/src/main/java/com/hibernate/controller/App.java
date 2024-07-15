@@ -8,7 +8,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import com.hibernate.model.Course;
 import com.hibernate.model.Department;
+import com.hibernate.model.Student;
 import com.hibernate.service.CourseService;
 import com.hibernate.service.StudentService;
 
@@ -45,6 +47,9 @@ public class App {
 				System.out.println("3. List all Department");
 				System.out.println("4. Add Department");
 				System.out.println("5. Add Course");
+				System.out.println("6. List of Students");
+				System.out.println("7. List of Courses");
+				System.out.println("8. Enroll student in Course");
 				
 				System.out.println("0.Exit");
 				int input = sc.nextInt();
@@ -97,6 +102,24 @@ public class App {
 					try {
 						courseService.addCourse();
 						System.out.println("Course added...");
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
+				case 6: 
+					try {
+						List<Student> list = studentService.getAllStudent();
+						list.stream().forEach(s-> System.out.println(s));
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
+				case 7: 
+					try {
+						List<?> list =  courseService.getAllCourse();
+						list.stream().forEach(c-> System.out.println(c));
 					}
 					catch(Exception e) {
 						System.out.println(e.getMessage());

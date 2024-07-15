@@ -71,7 +71,15 @@ public class CourseService {
 		/* persist course */
 		entityManager.persist(course);
 		transaction.commit();
-	} 
+	}
+
+	public List<?> getAllCourse() {
+		transaction.begin();
+		Query query= entityManager.createNativeQuery("select * from course", Course.class);
+		List<?> list = query.getResultList();
+		transaction.commit();
+		return list;
+	} //? : i dont know or can;t say right now what my list generically will have
 	 
 	
 }

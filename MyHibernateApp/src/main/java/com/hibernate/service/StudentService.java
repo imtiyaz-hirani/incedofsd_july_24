@@ -1,9 +1,11 @@
 package com.hibernate.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import com.hibernate.exception.ResourceNotFoundException;
 import com.hibernate.model.Address;
@@ -82,6 +84,15 @@ public class StudentService {
 		 entityManager.remove(addressObj);
 		 transaction.commit();
 		
+	}
+
+	public List<Student> getAllStudent() {
+		transaction.begin();
+		Query query =  entityManager.createNativeQuery("select * from student", Student.class);
+		@SuppressWarnings("unchecked")
+		List<Student> list = query.getResultList();
+		transaction.commit();
+		return list;
 	}
 
 }
