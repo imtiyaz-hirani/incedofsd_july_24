@@ -65,7 +65,6 @@ public class StudentService {
 	}
 
 	public void deleteStudent() throws ResourceNotFoundException {
-		
 		 System.out.println("Enter student id to delete");
 		 int studentId = sc.nextInt();
 		 /* Fetch student object and validate this ID. */

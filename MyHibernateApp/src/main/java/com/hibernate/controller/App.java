@@ -1,16 +1,15 @@
 package com.hibernate.controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.transaction.Transaction;
 
-import com.hibernate.model.Address;
-import com.hibernate.model.Student;
-import com.hibernate.service.AddressService;
+import com.hibernate.model.Department;
+import com.hibernate.service.CourseService;
 import com.hibernate.service.StudentService;
 
 public class App {
@@ -37,11 +36,16 @@ public class App {
 			transaction = entityManager.getTransaction();
 
 			StudentService studentService = new StudentService(entityManager,transaction);
+ 			CourseService courseService = new CourseService(entityManager, transaction);
  			
 			while(true) {
 				System.out.println("***********COllege App**************");
 				System.out.println("1. Add Student");
 				System.out.println("2. Delete Student Record");
+				System.out.println("3. List all Department");
+				System.out.println("4. Add Department");
+				System.out.println("5. Add Course");
+				
 				System.out.println("0.Exit");
 				int input = sc.nextInt();
 				if(input == 0) {
@@ -67,8 +71,19 @@ public class App {
 					catch(Exception e) {
 						System.out.println(e.getMessage());
 					}
-					
 					break; 
+				case 3: 
+					try {
+						List<Department> list =  courseService.getAllDepartment();
+						System.out.println(list.size() == 0? "No records to display" 
+									: "---List of Departments---");	
+						list.stream().forEach(d -> System.out.println(d));
+						 
+					}
+					catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					break;
 				default: 
 					System.out.println("invalid input given.. try again");
 					break; 
