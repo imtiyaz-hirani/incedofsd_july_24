@@ -43,7 +43,21 @@ Java OOP Fundamentals
  - CRUD 
 
 - Java Streams and Lambda Expressions 
-
-- Unit Testing using JUnit Framework 
+- Junit Testing 
  
+
+DB Programming 
+	- Single table queries : group by, having clauses 
+	- DB design - EER 
+	- Multi table Queries 
+		- Manual Mapping 
+		- Joins 
+		- Nested Queries 
+	
+
+
+
+
+
+
   

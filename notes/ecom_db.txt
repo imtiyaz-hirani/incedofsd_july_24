@@ -348,6 +348,23 @@ INSERT INTO review (id, message, rating, customer_id, product_id) VALUES
 (50, 'Just fine', 3, 10, 10);
 
 
+-- final solution 
+select  id, title 
+from product 
+where id IN (select p.id   
+			 from product p JOIN vendor v ON p.vendor_id = v.id 
+			 where p.isfeatured = true ) 
+AND id IN (select p.id 
+			from product p JOIN vendor v ON p.vendor_id = v.id
+			group by p.title 
+			having count(*) >=1)
+AND id IN (select p.id 
+			from product p JOIN stock s ON p.stock_id = s.id
+			where s.count > 200)
+AND id IN (select p.id 
+			from product p JOIN review r ON p.id = r.product_id 
+			group by p.id
+			having count(*)>2);
 
 
 

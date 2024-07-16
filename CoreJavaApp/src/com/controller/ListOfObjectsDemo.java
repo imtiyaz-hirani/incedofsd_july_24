@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 import com.model.Employee;
 
 public class ListOfObjectsDemo {
 
 	public static void main(String[] args) {
+		System.out.println("Current thread name " +Thread.currentThread().getName());
 		List<Employee> list = new ArrayList<>(); 
 		Employee employee1 = new Employee(2,"harry potter","IT","london",88000D);
 		Employee employee2 = new Employee(4,"ronald weasley","ADMIN","surrey",75000D);

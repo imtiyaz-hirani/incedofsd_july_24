@@ -1,6 +1,6 @@
 package com.model;
 
-public class Account {
+public class Account implements Comparable<Account>{
 	private int id;
 	private String type;
 	private double balance;
@@ -42,7 +42,9 @@ public class Account {
 		return "Account [id=" + id + ", type=" + type + ", balance=" + balance + "]";
 	}
 
-	 
+	@Override
+	public int compareTo(Account a2) { 
+		return (int) (this.balance - a2.balance);
+	}
 
-	
 }

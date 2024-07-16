@@ -53,7 +53,7 @@ public class App {
 				System.out.println("7. List of Courses");
 				System.out.println("8. Enroll student in Course");
 				System.out.println("9. Enrollment stats for all courses");
-				
+				System.out.println("");
 				
 				System.out.println("0.Exit");
 				int input = sc.nextInt();

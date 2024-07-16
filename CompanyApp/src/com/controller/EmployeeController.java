@@ -3,6 +3,7 @@ package com.controller;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.exception.ResourceNotFoundException;
@@ -22,6 +23,7 @@ public class EmployeeController {
 			System.out.println("4. Update Employee Info");
 			System.out.println("5. Filter Employee Data");
 			System.out.println("6. Sort Employee Data");
+			System.out.println("7. Employee Stats for City");
 			System.out.println("0. To Exit");
 			int input = sc.nextInt();
 			if(input == 0) {
@@ -128,18 +130,22 @@ public class EmployeeController {
 						case 1: 
 							System.out.println("Enter city value: ");
 							List<Employee> filteredList = employeeService.filterEmployeeDataByCity(list, sc.next() );
-							for(Employee e : filteredList) {
-								System.out.println(e);
-							}
+							filteredList.stream().forEach(e->System.out.println(e));
 							break;
 						case 2: 
 							System.out.println("Enter salary value: ");
+							filteredList = employeeService.filterEmployeeDataBySalary(list, sc.nextDouble() );
+							filteredList.stream().forEach(e->System.out.println(e));
 							break; 
 						case 3: 
 							System.out.println("Enter department value: ");
+							filteredList = employeeService.filterEmployeeDataByDapartment(list, sc.next() );
+							filteredList.stream().forEach(e->System.out.println(e));
 							break; 
 						case 4: 
 							System.out.println("Enter date of joining: ");
+							filteredList = employeeService.filterEmployeeDataByDate(list, sc.next() );
+							filteredList.stream().forEach(e->System.out.println(e));
 							break; 
 						default: 
 							System.out.println("Invalid Input.. try again pls");
@@ -152,7 +158,25 @@ public class EmployeeController {
 				}
 				   break;
 				case 6:
+				try {
+					list = employeeService.getAllEmployees();
+					List<Employee> sortedList = employeeService.sortBYSalary(list,"DESC"); 
+					sortedList.stream().forEach(e->System.out.println(e));
+				} catch (SQLException e1) {
+					System.out.println(e1.getMessage());
+				}
 					break;
+					
+				case 7:
+				try {
+					list = employeeService.getAllEmployees();
+					Map<String,Integer> map =  employeeService.statsByCity(list);
+					System.out.println(map);
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+
+				}
+					break; 
 				default: 
 					System.out.println("Invalid Input.. Try Again");
 			} //switch ends

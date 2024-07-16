@@ -313,3 +313,8 @@ Ouput:
 	4	Vendor D
 	5	Vendor E
 */
+
+
+/* 
+JOINS: inner join (join), left join / left outer join, right outer join, [full join ]
+*/
