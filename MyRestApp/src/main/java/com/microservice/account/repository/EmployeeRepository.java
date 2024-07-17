@@ -20,4 +20,6 @@ extends JpaRepository<Employee, Integer>{
  * Obj save(Obj)
  * List<T> findAll()
  * deleteById(id)
+ * Optional<Employee> findById(id) : if id is valid , u get Employee obj else u have 
+ * empty optional value
  * */
