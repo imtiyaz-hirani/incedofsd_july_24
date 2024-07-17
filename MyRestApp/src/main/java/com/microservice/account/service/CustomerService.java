@@ -1,5 +1,7 @@
 package com.microservice.account.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,13 @@ public class CustomerService {
 	public Customer addCustomer(Customer customer) {
 		 
 		return customerRepository.save(customer);
+	}
+	public List<Customer> getAllCustomers() {
+		return customerRepository.findAll();
+	}
+	
+	public List<Customer> getCustomerByRegion(int regionId) {
+		return customerRepository.findByRegionId(regionId);
 	}
 
 }

@@ -1,7 +1,10 @@
 package com.microservice.account.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,5 +43,21 @@ public class CustomerController {
 			return ResponseEntity.badRequest().body(dto);
 		}
 		
+	}
+	
+	@GetMapping("/api/customer/getall")
+	public List<Customer> getAllCustomers() {
+		List<Customer> list = customerService.getAllCustomers();
+		return list; 
+	}
+	
+	@GetMapping("/api/customer/region/{regionId}")
+	public List<Customer> getCustomerByRegion(@PathVariable("regionId") int regionId) {
+		return customerService.getCustomerByRegion(regionId); 
+	}
+	
+	@GetMapping("/api/customer/country/{countryId}")
+	public List<Customer> getCustomerByCountry(@PathVariable("countryId") int countryId) {
+		return null; 
 	}
 }
