@@ -58,6 +58,7 @@ public class CustomerController {
 	
 	@GetMapping("/api/customer/country/{countryId}")
 	public List<Customer> getCustomerByCountry(@PathVariable("countryId") int countryId) {
-		return null; 
+		
+		return customerService.getCustomerByCountry(countryId); 
 	}
 }

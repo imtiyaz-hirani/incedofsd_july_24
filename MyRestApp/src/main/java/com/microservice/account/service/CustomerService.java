@@ -24,5 +24,8 @@ public class CustomerService {
 	public List<Customer> getCustomerByRegion(int regionId) {
 		return customerRepository.findByRegionId(regionId);
 	}
+	public List<Customer> getCustomerByCountry(int countryId) {
+		return customerRepository.getCustomerByCountryJpql(countryId);
+	}
 
 }
