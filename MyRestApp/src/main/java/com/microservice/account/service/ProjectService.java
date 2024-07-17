@@ -22,4 +22,9 @@ public class ProjectService {
 		return optional.get();
 	}
 
+	public Project postProject(Project project) {
+		
+		return projectRepository.save(project);
+	}
+
 }
