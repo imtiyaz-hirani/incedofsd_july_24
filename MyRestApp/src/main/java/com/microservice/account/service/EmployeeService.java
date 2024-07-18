@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.microservice.account.exception.ResourceNotFoundException;
@@ -15,8 +16,13 @@ public class EmployeeService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	@Autowired 
+	private PasswordEncoder passwordEncoder; 
 	
 	public Employee addEmployee(Employee employee) {
+		String rawPass = employee.getUserInfo().getPassword();
+		String encodedPass = passwordEncoder.encode(rawPass);
+		employee.getUserInfo().setPassword(encodedPass);
 		return employeeRepository.save(employee);
 	}
 
