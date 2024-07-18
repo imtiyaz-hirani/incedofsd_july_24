@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Employee {
@@ -18,6 +19,9 @@ public class Employee {
 	
 	private double salary;
 
+	@OneToOne
+	private UserInfo userInfo; 
+	
 	public int getId() {
 		return id;
 	}
@@ -53,6 +57,14 @@ public class Employee {
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", city=" + city + ", salary=" + salary + "]";
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	} 
 	
 	

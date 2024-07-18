@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 @Entity
 public class Customer {
 
@@ -18,7 +19,10 @@ public class Customer {
 	
 	@ManyToOne
 	private Region region;
-
+	
+	@OneToOne
+	private UserInfo userInfo; 
+	
 	public int getId() {
 		return id;
 	}
@@ -49,6 +53,14 @@ public class Customer {
 
 	public void setRegion(Region region) {
 		this.region = region;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	} 
 	
 	

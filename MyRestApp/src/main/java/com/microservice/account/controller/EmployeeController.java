@@ -15,21 +15,35 @@ import org.springframework.web.bind.annotation.RestController;
 import com.microservice.account.dto.ResponseDto;
 import com.microservice.account.exception.ResourceNotFoundException;
 import com.microservice.account.model.Employee;
+import com.microservice.account.model.UserInfo;
 import com.microservice.account.service.EmployeeService;
+import com.microservice.account.service.UserInfoService;
 
 @RestController
 public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private UserInfoService userInfoService;
 	
-	@PostMapping("/api/employee/add")
+	@PostMapping("/api/employee/add") //authenticate
 	public Employee postEmployee(@RequestBody Employee employee) {
-		employee = employeeService.addEmployee(employee);
-		return employee;
+		/* detach userInfo from employee coming as input  */
+		UserInfo userInfo = employee.getUserInfo();
+		
+		/* Save this userInfo in user_info table in DB and prepare full obj */
+		userInfo = userInfoService.insertUserInfo(userInfo);
+		
+		/* Attach this full obj to employee again */
+		employee.setUserInfo(userInfo);
+		
+		/* save the employee */
+		return employeeService.addEmployee(employee);
+		
 	}
 	
-	@GetMapping("/api/employee/getall")
+	@GetMapping("/api/employee/getall") //permit all 
 	public List<Employee> getAllEmployee() {
 		List<Employee> list = employeeService.getAllEmployee();
 		return list; 
