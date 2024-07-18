@@ -17,7 +17,6 @@ public class UserInfoService implements UserDetailsService{
 	private UserInfoRepository userInfoRepository;
 	
 	public UserInfo insertUserInfo(UserInfo userInfo) {
-		userInfo.setRole(RoleType.EMPLOYEE);
 		return userInfoRepository.save(userInfo);
 	}
 

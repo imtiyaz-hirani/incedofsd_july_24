@@ -34,6 +34,8 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.POST,"/api/country/add").authenticated()
             	.antMatchers(HttpMethod.POST,"/api/project/add/{regionId}").authenticated()
             	.antMatchers(HttpMethod.GET,"/api/customer/getall").hasAuthority("CUSTOMER")	
+            	.antMatchers(HttpMethod.POST,"/api/hr/add").permitAll()	
+
             	
                 .anyRequest().denyAll()
             )

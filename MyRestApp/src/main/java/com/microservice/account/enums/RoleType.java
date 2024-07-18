@@ -1,5 +1,5 @@
 package com.microservice.account.enums;
 
 public enum RoleType {
-	CUSTOMER,EMPLOYEE
+	CUSTOMER,EMPLOYEE,HR
 }
