@@ -15,6 +15,7 @@ public class HRService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
 	public HR insertHR(HR hr) {
 		String rawPass = hr.getUserInfo().getPassword();
 		String encodedPass = passwordEncoder.encode(rawPass);
