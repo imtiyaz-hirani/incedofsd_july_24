@@ -46,4 +46,23 @@ Java OOP Fundamentals
 
 - Unit Testing using JUnit Framework 
  
-  
+- DB Programming 
+	- Single table queries : group by, having clauses 
+	- DB design - EER 
+	- Multi table Queries 
+		- Manual Mapping 
+		- Joins 
+		- Nested Queries 
+	
+- JPA/Hibernate Framework 
+
+-  Persistence API 
+- Hibernate ORM : Object Relational Model 
+	- Configuring Hibernate Project
+	- creating entity classes (1:M / M:1)
+	- Using EntityManager methods 
+
+- Spring Framework
+	- Set Up the project
+	- REST API 
+	- Security Config 

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -21,6 +22,9 @@ public class Employee {
 
 	@OneToOne
 	private UserInfo userInfo; 
+	
+	@ManyToOne
+	private Manager manager; 
 	
 	public int getId() {
 		return id;
@@ -65,6 +69,14 @@ public class Employee {
 
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
+	}
+
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
 	} 
 	
 	
