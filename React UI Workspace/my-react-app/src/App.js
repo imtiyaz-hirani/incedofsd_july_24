@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import './style.css';
+import SignUp from './components/signup';
 function App() {
    
   let [arry,setArry] = useState([5,3,1,7,2,3,9]);
@@ -40,6 +41,11 @@ function App() {
         <button onClick={()=>sortArry('RESET')}>RESET</button>
         <button onClick={()=>sortArry('DESC')}> Sort-DESC</button>
        </div>
+
+      <div>
+        <hr />
+        <SignUp />
+      </div>
     </div>
   );     
 }
