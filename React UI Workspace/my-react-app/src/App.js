@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import './style.css';
 import SignUp from './components/signup';
+import Employees from './components/employees';
 function App() {
    
   let [arry,setArry] = useState([5,3,1,7,2,3,9]);
@@ -45,6 +46,9 @@ function App() {
       <div>
         <hr />
         <SignUp />
+        <hr />
+        <Employees />
+
       </div>
     </div>
   );     

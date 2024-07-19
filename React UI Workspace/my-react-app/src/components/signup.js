@@ -16,7 +16,8 @@ function SignUp(){
         <div style={{padding: '20px'}}>
             <h2>Sign Up</h2>
             <label>Enter Name: </label> 
-            <input type="text" onChange={(e)=>setName(e.target.value)}/>
+            <input type="text" onChange={(e)=>
+                                setName(e.target.value)}/>
             <br />
             <label>Enter Username: </label>
             <input type="text" onChange={(e)=>setUsername(e.target.value)} />
