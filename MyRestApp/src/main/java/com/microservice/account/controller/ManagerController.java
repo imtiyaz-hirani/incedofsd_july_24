@@ -19,6 +19,7 @@ public class ManagerController {
 	private ManagerService managerService;
 	@Autowired
 	private UserInfoService userInfoService;
+	
 	@PostMapping("/api/manager/add")
 	public Manager addManager(@RequestBody Manager manager) {
 		manager.setJobTitle(JobTitle.PROJECT_MANAGER);

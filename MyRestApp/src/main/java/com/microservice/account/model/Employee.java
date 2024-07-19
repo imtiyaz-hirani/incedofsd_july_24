@@ -1,11 +1,15 @@
 package com.microservice.account.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.microservice.account.enums.JobTitle;
 
 @Entity
 public class Employee {
@@ -20,6 +24,9 @@ public class Employee {
 	
 	private double salary;
 
+	@Enumerated(EnumType.STRING)
+	private JobTitle jobTitle; 
+	
 	@OneToOne
 	private UserInfo userInfo; 
 	
@@ -77,6 +84,14 @@ public class Employee {
 
 	public void setManager(Manager manager) {
 		this.manager = manager;
+	}
+
+	public JobTitle getJobTitle() {
+		return jobTitle;
+	}
+
+	public void setJobTitle(JobTitle jobTitle) {
+		this.jobTitle = jobTitle;
 	} 
 	
 	

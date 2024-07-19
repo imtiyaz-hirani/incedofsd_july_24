@@ -36,9 +36,8 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.GET,"/api/customer/getall").hasAuthority("CUSTOMER")	
             	.antMatchers(HttpMethod.POST,"/api/hr/add").permitAll()
             	.antMatchers(HttpMethod.POST,"/api/manager/add").hasAuthority("HR")
-            	
-            	
-                .anyRequest().denyAll()
+            	.antMatchers(HttpMethod.POST,"/api/employee/add/{managerId}").hasAuthority("HR")
+            	.anyRequest().denyAll()
             )
             .httpBasic(Customizer.withDefaults());
         return http.build();
