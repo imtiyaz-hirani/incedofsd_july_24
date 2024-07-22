@@ -20,7 +20,7 @@ function Customer(){
         }
          else {
             setShowAddBtn(true)
-            console.log(name +'--' + contact)
+            
         }
 
         if(name === '')
@@ -108,7 +108,7 @@ function Customer(){
             <br /><br />
             {
                 showAddBtn === true? <span>
-                    <button onClick={()=>addEmployee()}>Add Employee</button>
+                    <button onClick={()=>addEmployee()}>Add Customer</button>
                 </span> : <span>
                     <button  disabled>Add Employee</button>
                 </span>

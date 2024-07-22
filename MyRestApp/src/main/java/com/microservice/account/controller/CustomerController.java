@@ -27,8 +27,7 @@ public class CustomerController {
 	@Autowired
 	private RegionService regionService; 
 	
-	@CrossOrigin(origins = {"http://localhost:3000/"})
-	@PostMapping("/api/customer/add/{regionId}")
+ 	@PostMapping("/api/customer/add/{regionId}")
 	public ResponseEntity<?> postCustomer(@PathVariable("regionId") int regionId,
 			@RequestBody Customer customer ) {
 		/* fetch regionObj based on regionId */

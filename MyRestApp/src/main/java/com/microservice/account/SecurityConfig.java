@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.microservice.account.service.UserInfoService;
 
@@ -28,9 +30,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer:: disable)
-            .cors().disable()
             .authorizeHttpRequests(authorize -> authorize
             	.antMatchers(HttpMethod.GET,"/api/login").authenticated()	
+            	.antMatchers(HttpMethod.POST,"/api/customer/add/{regionId}").permitAll()
             	.antMatchers(HttpMethod.GET,"/api/employee/getall").permitAll()	
             	.antMatchers(HttpMethod.POST,"/api/employee/add").hasAuthority("EMPLOYEE")
             	.antMatchers(HttpMethod.POST,"/api/country/add").authenticated()
@@ -41,8 +43,8 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.POST,"/api/employee/add/{managerId}").hasAuthority("HR")
             	.antMatchers(HttpMethod.POST,"/api/region/add/{countryId}").permitAll()
             	.antMatchers(HttpMethod.GET,"/api/region/all").permitAll()
-            	.antMatchers(HttpMethod.POST,"/api/customer/add/{regionId}").permitAll()
-            	.anyRequest().denyAll()
+            	
+            	.anyRequest().permitAll()
             )
             .httpBasic(Customizer.withDefaults());
         return http.build();
@@ -62,4 +64,5 @@ public class SecurityConfig {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder; 
 	}
+	 
 }
