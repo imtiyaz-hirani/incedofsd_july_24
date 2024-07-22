@@ -3,50 +3,51 @@ import '../css/customer.css'
 
 function Customer(){
 
-    const [name,setName] = useState('');
-    const [contact,setContact] = useState('');
+    const [name,setName] = useState(null);
+    const [contact,setContact] = useState(null);
     const [nameErr,setNameErr] = useState(null);
     const [contactErr,setContactErr] = useState(null);
     const [showAddBtn,setShowAddBtn] = useState(false);
 
     useEffect(()=>{
-        if(name === '' && contact === '')
+        if(name === null || contact === null)
             setShowAddBtn(false)
-        else 
-            setShowAddBtn(true)
-    },[nameErr,contactErr,name,contact]);
-
-    const handleInput = (e,field)=>{
-
-        switch(field){
-            case 'name':
-                 
-                setName(e.target.value)
-                if(name === ''){
-                    setNameErr('Name is Mandatory')
-                }
-                else{
-                    setNameErr('')
-                }
-                break; 
-            case 'contact':
-                let contactVal = e.target.value;
-                setContact(contactVal)
-                if(contact === ''){
-                    setContactErr('Contact is Mandatory')
-                }
-                else{
-                    setContactErr('')
-                }
-                break; 
-            default:
-
+        else
+        if((name === ''  || contact === '')) {
+            setShowAddBtn(false)
         }
-         
+         else {
+            setShowAddBtn(true)
+            console.log(name +'--' + contact)
+        }
 
-    }
-   
+        if(name === '')
+            setNameErr('Name is mandatory')
+        else
+            setNameErr('')
 
+        if(contact === '')
+            setContactErr('contact is mandatory')
+        else
+            setContactErr('')
+        
+       if(contact !== '' && contact?.length !== 10)
+            setContactErr('contact shd be 10 digit')
+        else
+            setContactErr('')
+    
+        
+            
+    },[name,contact]);
+
+    const handleName = (e)=>{
+        setName(e.target.value)
+        
+     }
+    const handleContact = (e)=>{
+        setContact(e.target.value)
+        
+     }
     const addEmployee=()=>{
 
     }
@@ -56,12 +57,12 @@ function Customer(){
           <div className='form-content'>
             <h1>Add Customer</h1>
             <label>Enter Name: </label>
-            <input type="text" onChange={(e)=>handleInput(e,'name') }/> 
+            <input type="text" onChange={(e)=>handleName(e) }/> 
             &nbsp;&nbsp; 
             <span className='error-msg'> {nameErr} </span>
             <br /><br />
             <label>Enter Contact: </label>
-            <input type="number" onChange={(e)=>handleInput(e,'contact')}/>
+            <input type="number" onChange={(e)=>handleContact(e)}/>
             &nbsp;&nbsp; 
             <span className='error-msg'> {contactErr}</span>
             <br /><br />
