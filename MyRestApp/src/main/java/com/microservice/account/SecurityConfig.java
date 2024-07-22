@@ -28,18 +28,20 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer:: disable)
+            .cors().disable()
             .authorizeHttpRequests(authorize -> authorize
             	.antMatchers(HttpMethod.GET,"/api/login").authenticated()	
             	.antMatchers(HttpMethod.GET,"/api/employee/getall").permitAll()	
             	.antMatchers(HttpMethod.POST,"/api/employee/add").hasAuthority("EMPLOYEE")
             	.antMatchers(HttpMethod.POST,"/api/country/add").authenticated()
             	.antMatchers(HttpMethod.POST,"/api/project/add/{regionId}").authenticated()
-            	.antMatchers(HttpMethod.GET,"/api/customer/getall").hasAuthority("CUSTOMER")	
+            	.antMatchers(HttpMethod.GET,"/api/customer/getall").permitAll()	
             	.antMatchers(HttpMethod.POST,"/api/hr/add").permitAll()
             	.antMatchers(HttpMethod.POST,"/api/manager/add").hasAuthority("HR")
             	.antMatchers(HttpMethod.POST,"/api/employee/add/{managerId}").hasAuthority("HR")
             	.antMatchers(HttpMethod.POST,"/api/region/add/{countryId}").permitAll()
             	.antMatchers(HttpMethod.GET,"/api/region/all").permitAll()
+            	.antMatchers(HttpMethod.POST,"/api/customer/add/{regionId}").permitAll()
             	.anyRequest().denyAll()
             )
             .httpBasic(Customizer.withDefaults());

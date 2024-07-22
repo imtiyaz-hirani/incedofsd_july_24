@@ -62,9 +62,21 @@ function Customer(){
         
      }
     const addEmployee=()=>{
+
         console.log(name)
         console.log(contact)
         console.log(regionId)
+        let customer = {
+            name: name,
+            contact: contact
+          }
+        axios.post('http://localhost:8081/api/customer/add/' + regionId, customer)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     const handleRegion = (e)=>{
