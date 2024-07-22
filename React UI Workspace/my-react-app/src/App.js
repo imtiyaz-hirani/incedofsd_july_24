@@ -5,8 +5,8 @@ import SignUp from './components/signup';
 import Employees from './components/employees';
 function App() {
    
-  let [arry,setArry] = useState([5,3,1,7,2,3,9]);
-  let [arryClone,] = useState([...arry]);
+  let [arry,setArry] = useState([5,3,1,7,2,3,9]); //100X : [5,3,1,7,2,3,9]
+  let [arryClone,] = useState([...arry]); //200X: [5,3,1,7,3,9]
 
   const sortArry=(op)=>{
     let temp =[...arry]; 
