@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import '../css/customer.css'
+import axios from 'axios';
 
 function Customer(){
-
     const [name,setName] = useState(null);
     const [contact,setContact] = useState(null);
+    const [regionId,setRegionId] = useState(null);
     const [nameErr,setNameErr] = useState(null);
     const [contactErr,setContactErr] = useState(null);
     const [showAddBtn,setShowAddBtn] = useState(false);
+    const [regions,setRegions] = useState([]);
 
     useEffect(()=>{
         if(name === null || contact === null)
@@ -25,19 +27,30 @@ function Customer(){
             setNameErr('Name is mandatory')
         else
             setNameErr('')
-
+ 
         if(contact === '')
             setContactErr('contact is mandatory')
         else
             setContactErr('')
         
-       if(contact !== '' && contact?.length !== 10)
+       if(contact !== '' && contact?.length !== 10 && contact !== null)
             setContactErr('contact shd be 10 digit')
         else
             setContactErr('')
-    
-        
-            
+
+
+            axios.get('http://localhost:8081/api/region/all')
+            .then(function (response) {
+              setRegions(response.data)
+            })
+            .catch(function (error) {
+              // handle error
+              console.log(error);
+            })
+            .finally(function () {
+              // always executed
+            });
+          
     },[name,contact]);
 
     const handleName = (e)=>{
@@ -49,7 +62,13 @@ function Customer(){
         
      }
     const addEmployee=()=>{
+        console.log(name)
+        console.log(contact)
+        console.log(regionId)
+    }
 
+    const handleRegion = (e)=>{
+        setRegionId(e.target.value)
     }
     return (
       <div className="customer-container">
@@ -65,6 +84,15 @@ function Customer(){
             <input type="number" onChange={(e)=>handleContact(e)}/>
             &nbsp;&nbsp; 
             <span className='error-msg'> {contactErr}</span>
+            <br /><br />
+            <label>Select Region: </label>
+            <select onChange={(e)=> handleRegion(e)}>
+                {
+                    regions.map((e,index)=>(
+                        <option key={index} value={e.id}>{e.regionName} -- {e.country.countryName}</option>
+                    ))
+                }
+            </select>
             <br /><br />
             {
                 showAddBtn === true? <span>

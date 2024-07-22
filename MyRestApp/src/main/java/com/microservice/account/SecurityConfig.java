@@ -38,6 +38,8 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.POST,"/api/hr/add").permitAll()
             	.antMatchers(HttpMethod.POST,"/api/manager/add").hasAuthority("HR")
             	.antMatchers(HttpMethod.POST,"/api/employee/add/{managerId}").hasAuthority("HR")
+            	.antMatchers(HttpMethod.POST,"/api/region/add/{countryId}").permitAll()
+            	.antMatchers(HttpMethod.GET,"/api/region/all").permitAll()
             	.anyRequest().denyAll()
             )
             .httpBasic(Customizer.withDefaults());
