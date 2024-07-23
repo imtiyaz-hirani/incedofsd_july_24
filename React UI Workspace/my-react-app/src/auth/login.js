@@ -1,7 +1,6 @@
-import {  useState } from 'react';
-import '../css/customer.css'
-import axios from 'axios';
-
+import axios from "axios";
+import { useState } from "react";
+import './login.css'
 function Login(){
     const [username,setUsername] = useState(null);
     const [password,setPassword] = useState(null);

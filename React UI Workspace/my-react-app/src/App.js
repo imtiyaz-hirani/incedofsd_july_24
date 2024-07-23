@@ -1,57 +1,16 @@
-import { useState } from 'react';
-import './App.css';
-import './style.css';
-import SignUp from './components/signup';
-import Employees from './components/employees';
+import { Route, Routes } from "react-router";
+import Login from "./auth/login";
+import HR from "./features/hr/hr";
+ 
 function App() {
-   
-  let [arry,setArry] = useState([5,3,1,7,2,3,9]); //100X : [5,3,1,7,2,3,9]
-  let [arryClone,] = useState([...arry]); //200X: [5,3,1,7,3,9]
-
-  const sortArry=(op)=>{
-    let temp =[...arry]; 
-    if(op === 'ASC'){
-      temp.sort((a, b) => a - b);
-      setArry([...temp])
-      return; 
-    }
-    if(op === 'DESC'){
-      temp.sort((a, b) => b - a);
-      setArry([...temp])
-      return;
-    }
-    setArry([...arryClone])
-    return; 
-  }
-  return (
-    <div className="App">
-      <div className='message'>
-        Hello React!!!
-      </div>
-      <hr />
-       {
-        arry.map((e,index)=>(
-          <div key={index}> 
-              {e}
-          </div>
-        ))
-       }
-
-       <div>
-        <button onClick={()=>sortArry('ASC')}>Sort-ASC</button>
-        <button onClick={()=>sortArry('RESET')}>RESET</button>
-        <button onClick={()=>sortArry('DESC')}> Sort-DESC</button>
-       </div>
-
-      <div>
-        <hr />
-        <SignUp />
-        <hr />
-        <Employees />
-
-      </div>
+   return(
+    <div>
+      <Routes>
+          <Route path="/" element={<Login />}></Route>
+          <Route path="/hr" element={<HR />}></Route>
+      </Routes>
     </div>
-  );     
+   )
 }
 
 export default App;
