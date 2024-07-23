@@ -1,8 +1,10 @@
+import Navbar from "./components/navbar";
+
 function HR(){
 
     return(
         <div>
-            <h1>HR Screen</h1>
+            <Navbar />
         </div>
     )
 }
