@@ -1,5 +1,6 @@
 package com.microservice.account.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservice.account.dto.ManagerDto;
 import com.microservice.account.enums.JobTitle;
 import com.microservice.account.enums.RoleType;
 import com.microservice.account.model.HR;
@@ -42,10 +44,16 @@ public class HRController {
 		/* Save HR */
 		return hrService.insertHR(hr);
 	}
-	
+
 	@GetMapping("/api/hr/stat")
 	public Map<String,Integer> hrStats() {
 		Map<String,Integer> map = hrService.getStat();
 		return map; 
+	}
+	
+	@GetMapping("/api/hr/manager/employee")
+	public List<ManagerDto> getAllManagerWithEmployee() {
+		List<ManagerDto> dto = hrService.getAllManagerWithEmployee();
+		return dto; 
 	}
 }
