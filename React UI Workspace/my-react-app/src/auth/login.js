@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
 import './login.css'
+import { useNavigate } from "react-router";
 function Login(){
     const [username,setUsername] = useState(null);
     const [password,setPassword] = useState(null);
     const [errorMsg,setErrorMsg] = useState('');
-    const [user,setUser] = useState(null)
+    const navigate = useNavigate();
+
     const onLogin = ()=>{
         let token = window.btoa(username + ":" + password)
         axios.get('http://localhost:8081/api/login',{
@@ -15,23 +17,21 @@ function Login(){
         })
         .then(response=>{
             console.log(response.data);
-            setUser(response.data)
+            let user = {
+              'token': token,
+              'username': username,
+              'role': response.data.role
+            }
+            
             localStorage.setItem('token', token)
             localStorage.setItem('username',username)
-            localStorage.setItem('role',user?.role)
-            switch (user?.role) {
-              case "HR":
-                console.log("HR logged IN");
-                break;
-              case "EMPLOYEE":
-                console.log("EMPLOYEE logged IN");
-                break;
-              case "MANAGER":
-                console.log("MANAGER logged IN");
-                break;
-              default:
-                break;
+            localStorage.setItem('role',user.role)
+            
+            if(user.role === 'HR'){
+              navigate('/hr');
+              return; 
             }
+            
         })
         .catch(error=>{
              setErrorMsg('Invalid Credentials')
