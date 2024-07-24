@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Navbar(){
+function Navbar({searchFn}){
 
+  const [searchStr,setSearchStr] = useState();
+
+  const upStateSearch = (e)=>{
+    e.preventDefault();
+    searchFn(searchStr)
+  }
     return(
         <nav className="navbar navbar-expand-lg" data-bs-theme="light"  style={{ backgroundColor: '#e3f2fd', color: 'gray'}}>
   <div className="container-fluid">
@@ -19,9 +26,9 @@ function Navbar(){
         </li>
          
       </ul>
-      <form className="d-flex" role="search">
-        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
-        <button className="btn btn-outline-success" type="submit">Search</button>
+      <form className="d-flex"  role="search" onSubmit={(e)=>upStateSearch(e)}>
+        <input className="form-control me-2"  placeholder="Search by name/city"  onChange={(e)=> setSearchStr(e.target.value)}></input>
+        <button className="btn btn-outline-success" type="submit" >Search</button>
       </form>
     </div>
   </div>
