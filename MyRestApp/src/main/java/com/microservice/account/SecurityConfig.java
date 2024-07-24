@@ -45,6 +45,8 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.GET,"/api/region/all").permitAll()
             	.antMatchers(HttpMethod.GET,"/api/hr/stat").hasAuthority("HR")
             	.antMatchers(HttpMethod.GET,"/api/hr/manager/employee").hasAuthority("HR")
+            	.antMatchers(HttpMethod.GET,"/api/jobtype").hasAuthority("HR")
+            	.antMatchers(HttpMethod.GET,"/api/manager/all").hasAuthority("HR")
             	
             	.anyRequest().permitAll()
             )
