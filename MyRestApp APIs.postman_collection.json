@@ -137,7 +137,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"ronald weasley\",\r\n    \"city\": \"surrey\",\r\n    \"salary\":90000,\r\n    \"jobTitle\": \"DEVELOPER\",\r\n    \"userInfo\":{\r\n        \"username\": \"romal@gmail.com\",\r\n        \"password\": \"ronald@123\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Harry Potter\",\r\n    \"city\": \"london\",\r\n    \"salary\":98000,\r\n    \"jobTitle\": \"Sr_DEVELOPER\",\r\n    \"userInfo\":{\r\n        \"username\": \"harry@gmail.com\",\r\n        \"password\": \"harry@123\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,7 +145,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8081/api/employee/add/14",
+							"raw": "localhost:8081/api/employee/add/31",
 							"host": [
 								"localhost"
 							],
@@ -154,7 +154,169 @@
 								"api",
 								"employee",
 								"add",
-								"14"
+								"31"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET: HR Stat",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "albus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "albus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/hr/stat",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"hr",
+								"stat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET: JobTitle",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "albus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "albus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/jobtype",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"jobtype"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET: All Managers with Employees",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "albus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "albus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/hr/manager/employee",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"hr",
+								"manager",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET: SEARCH Employee and Manager By name and city",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/search/employee/manager/on",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"search",
+								"employee",
+								"manager",
+								"on"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETALL: Manager",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "albus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "albus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/manager/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"manager",
+								"all"
 							]
 						}
 					},
@@ -465,6 +627,26 @@
 						"api",
 						"customer",
 						"getall"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL: Region",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/api/region/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"region",
+						"all"
 					]
 				}
 			},
