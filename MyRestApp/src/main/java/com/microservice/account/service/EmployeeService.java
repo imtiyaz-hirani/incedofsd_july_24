@@ -58,6 +58,11 @@ public class EmployeeService {
 		return listStr;
 	}
 
+	public List<Employee> searchEmployeeOnName(String searchStr) {
+		return employeeRepository.searchEmployeeOnNameJpql(searchStr);
+	 
+	}
+
 }
 
 /* TO qualify for autowiring, EmployeeService must be a bean. 

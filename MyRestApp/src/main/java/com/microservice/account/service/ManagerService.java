@@ -39,4 +39,9 @@ public class ManagerService {
 		return managerRepository.findAll();
 	}
 
+	public List<Manager> searchManagerOnName(String searchStr) {
+		 
+		return managerRepository.searchManagerOnName(searchStr);
+	}
+
 }
