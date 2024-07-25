@@ -31,6 +31,11 @@ function Login(){
               navigate('/hr');
               return; 
             }
+            else
+            if(user.role === 'MANAGER'){
+              navigate('/manager');
+              return; 
+            }
             
         })
         .catch(error=>{
