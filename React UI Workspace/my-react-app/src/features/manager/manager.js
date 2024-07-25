@@ -1,15 +1,11 @@
-import { useEffect } from "react";
-import { getEmployees } from "../../store/action/employee";
-import { useDispatch } from "react-redux";
+
+import EmployeeList from "./componenets/employeeList";
 
 function Manager(){
-    const dispatch = useDispatch();
-    useEffect(()=>{
-        dispatch(getEmployees())
-    })
+    
     return (
         <div>
-            <h1>Manager screen</h1>
+            <EmployeeList />
         </div>
     )
 }

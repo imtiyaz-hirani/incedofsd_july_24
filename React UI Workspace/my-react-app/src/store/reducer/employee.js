@@ -3,7 +3,10 @@ const intialState ={
 }
 
 const employee = (state=intialState,action)=>{
-    console.log(action.payload)
+      if(action.type === 'GET_ALL_EMPLOYEE'){
+        let temp = action.payload; 
+        return {...state, list: temp}
+      }
 
     return state; 
 }

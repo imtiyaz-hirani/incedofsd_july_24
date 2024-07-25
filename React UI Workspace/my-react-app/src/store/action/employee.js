@@ -10,7 +10,7 @@ export const getEmployees=()=>(dispatch)=>{
     
     .then(response=>{
         let action = {
-            type: 'GET_EMPLOYEE',
+            type: 'GET_ALL_EMPLOYEE',
             payload: response.data
         };
 
