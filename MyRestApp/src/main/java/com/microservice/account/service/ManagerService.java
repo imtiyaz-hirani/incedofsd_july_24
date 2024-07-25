@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.microservice.account.exception.ResourceNotFoundException;
+import com.microservice.account.model.Employee;
 import com.microservice.account.model.Manager;
 import com.microservice.account.repository.ManagerRepository;
 
@@ -42,6 +43,10 @@ public class ManagerService {
 	public List<Manager> searchManagerOnName(String searchStr) {
 		 
 		return managerRepository.searchManagerOnName(searchStr);
+	}
+
+	public List<Employee> getEmployeeByManager(String username) {
+		return managerRepository.getEmployeeByManagerJpql(username);
 	}
 
 }

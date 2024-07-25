@@ -25,6 +25,7 @@ public class SearchController {
 	private ManagerService managerService; 
 	@Autowired
 	private SearchService searchService;
+	
 	@GetMapping("/api/search/employee/manager/{searchStr}")
 	public List<?> searchEmployeeAndManagerOnName(@PathVariable("searchStr") String searchStr) {
 		List<Employee> listEmp = employeeService.searchEmployeeOnName(searchStr);
@@ -32,6 +33,4 @@ public class SearchController {
 		List<EmployeeManagerDto> list= searchService.convertToDto(listEmp,listMng);
 		return list;
 	}
-	
-	
 }
