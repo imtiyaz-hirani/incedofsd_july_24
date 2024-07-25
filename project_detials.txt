@@ -1,0 +1,77 @@
+
+Capstone Project 
+----------------
+End Date: Last day of training. - demo 
+
+
+Topics
+------
+1. Employee WorkTime Management 
+2. Payroll System 
+3. Employee Rewards System 
+
+
+
+
+
+1. Employee WorkTime Management  : Harini + Prim 
+
+Employee
+HR 
+Manager 
+
+Stories 
+-------
+1. Employee logs in to the system. On the dashboard, there will be following options 
+   a. See all projects and the tasks assigned to it. 
+   b. Can record daily log of work done for each task assigned
+   c. Can see notifications on the dashboard 
+
+2. HR logs in to the system. On the dashboard, there will be following options 
+   a. HR can add Employee and Manager in the system
+   b. Can Assign Employee to Manager 
+
+3. Manager logs in to the system. On the dashboard, there will be following options 
+   a. Manager can create project 
+   b. Can create tasks inside project 
+   c. Can assign tasks to Employee working under it 
+   d. Can view status of the tasks given to employee
+   e. Can send notifications to Employee 
+
+
+2d Project. 2. Payroll System      Tuan + Winnie
+
+Employee 
+HR 
+
+HR logs in to the system. On the dashboard, there will be following options 
+	a. It can create an Employee and assign various job titles. 
+	b. It can create initial projects and assign employee and manager to project 
+	c. Can enter all salary details of Employees based on job_title 
+	d. It can send Payslip to the employee as message 
+	e. Can process leave request of employee with approval from manager 
+
+Employee  logs in to the system. On the dashboard, there will be following options 
+	a. Can check their projects 
+	b. Can access Payslips and other salary details 
+	c. Employee can request a Leave of absence 
+	d. Can check leave status 
+
+
+3. Employee Rewards System 	Yash+Revanth
+Employee
+Manager
+HR 
+
+1. HR logs in to the system. On the dashboard, there will be following options 
+   a. HR can add Employee and Manager in the system
+   b. Can Assign Employee to Manager 
+   c. Can add Items to be sold to employees using rewards points 
+
+2. Manager logs in to the system. On the dashboard, there will be following options 
+   a. See all employee details 
+   b. Can give reward points for excellence in work 
+
+3. Employee logs in to the system. On the dashboard, there will be following options 
+   a. Employee can browse thru the catalog of Items sold by company and redeem points to buy them 
+
