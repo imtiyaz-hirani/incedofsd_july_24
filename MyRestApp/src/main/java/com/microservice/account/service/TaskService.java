@@ -29,4 +29,10 @@ public class TaskService {
 		return taskRepository.findByEmployeeId(eid);
 	}
 
+	public void updateTaskForArchival(int tid) {
+		Task task = taskRepository.findById(tid).get();
+		task.setArchived(true);
+		taskRepository.save(task);
+	}
+
 }

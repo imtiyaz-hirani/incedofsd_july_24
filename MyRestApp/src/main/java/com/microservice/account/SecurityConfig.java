@@ -51,6 +51,8 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.GET,"/api/manager/employee").hasAuthority("MANAGER")
             	.antMatchers(HttpMethod.POST,"/api/task/employee/{eid}").hasAuthority("MANAGER")
             	.antMatchers(HttpMethod.GET,"/api/task/{eid}").hasAnyAuthority("MANAGER","EMPLOYEE")
+            	.antMatchers(HttpMethod.GET,"/api/task/archive/{tid}").hasAuthority("MANAGER")
+
             	.anyRequest().permitAll()
             )
             .httpBasic(Customizer.withDefaults());

@@ -1,12 +1,14 @@
 package com.microservice.account.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +28,16 @@ public class TaskController {
 	
 	@GetMapping("/api/task/{eid}")
 	public List<Task> getAllTask(@PathVariable("eid") int eid){
-		return taskService.getAllTask(eid);
+		return taskService.getAllTask(eid)
+					.stream()
+					.filter(t->t.isArchived() == false)
+					.collect(Collectors.toList());
 	}
+	
+	@GetMapping("/api/task/archive/{tid}")
+	public void updateTaskForArchival(@PathVariable("tid") int tid) {
+		taskService.updateTaskForArchival(tid);
+	}
+	
+	
 }

@@ -23,6 +23,8 @@ public class Task {
 	
 	private LocalDate endDate; 
 	
+	private boolean isArchived = false; 
+	
 	@ManyToOne
 	private Employee employee;
 
@@ -64,6 +66,14 @@ public class Task {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
+	}
+
+	public boolean isArchived() {
+		return isArchived;
+	}
+
+	public void setArchived(boolean isArchived) {
+		this.isArchived = isArchived;
 	}
 	
 	

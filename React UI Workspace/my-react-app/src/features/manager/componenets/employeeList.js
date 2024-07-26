@@ -162,6 +162,20 @@ function EmployeeList(){
     );
 
 
+    const archiveTask=(tid)=>{
+        axios.get('http://localhost:8081/api/task/archive/' + tid,{
+            headers: {
+                'Authorization': 'Basic ' + localStorage.getItem('token')
+            }
+        })
+        .then(resp=>{
+            setTasks([...tasks.filter(t=>t.id !== tid)]);
+            setMsg('Task Archived')
+        })
+        .catch(err=>{
+            setMsg('Operation Failed, Contact admin')
+        })
+    }
     return (
       <div className="card">
         <DataTable
@@ -267,7 +281,7 @@ function EmployeeList(){
                         <p style={{fontSize: '1.3em', fontFamily: "monospace" } }>{t.taskDetails}</p>
                     </div>
                     <div className="card-footer">
-                        <button className="btn btn-danger">Archive</button>
+                        <button className="btn btn-danger" onClick={()=>archiveTask(t.id)}>Archive</button>
                     </div>
                   </div>
                 </div>
