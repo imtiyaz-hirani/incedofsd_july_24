@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getEmployees } from "../../../store/action/employee";
+
  
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -8,26 +7,50 @@ import { IconField } from 'primereact/iconfield';
 import { InputIcon } from 'primereact/inputicon';
  import { InputText } from 'primereact/inputtext'; 
 import { FilterMatchMode } from "primereact/api";
- 
-function EmployeeList(){
+import { useSelector } from "react-redux";
+import { Button } from "react-bootstrap";
+import { Dialog } from "primereact/dialog";
+import { InputTextarea } from "primereact/inputtextarea";
+import { FloatLabel } from "primereact/floatlabel";
+import { Calendar } from 'primereact/calendar';
 
-    const {list} = useSelector((state)=>state.employee)
-    const dispatch = useDispatch();
+function EmployeeList(){
+    const [data,setData] = useState([]);
+     const {list} = useSelector((state)=>state.employee)
     const [filters,] = useState({
         name: { value: null, matchMode: FilterMatchMode.CUSTOM },
         city: { value: null, matchMode: FilterMatchMode.EQUALS },
         salary: { value: null, matchMode: FilterMatchMode.EQUALS }
     });
     const [loading,setLoading] = useState(true);
-
+    const [visible, setVisible] = useState(false);
+    const [employee,setEmployee] = useState({});
+    const [dates, setDates] = useState(null);
+    const [taskDetails,setTaskDetails] = useState('');
+    
     useEffect(()=>{
-        dispatch(getEmployees())
         setLoading(false)
-        
-    },[dispatch]);
+        setData(list);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]); 
 
+    const assignTask = ()=>{
+        console.log(taskDetails)
+        console.log(dates)
+        let startDate = new Date(dates[0]).toISOString().split("T")[0];
+        let endDate = new Date(dates[1]).toISOString().split("T")[0];
+
+        
+    }
     const globalSearch = (val)=>{
-        console.log(val)
+        if(val === '')
+            setData(list)
+        else{
+            let temp = [...data
+                .filter(row=>row.name.toLowerCase().search(val) !== -1)];
+            setData(temp)
+        }
+         
     }
     const renderHeader = () => {
         return (
@@ -50,6 +73,14 @@ function EmployeeList(){
         return (
             <div className="flex align-items-center gap-2">
                 <button className="btn btn-info" onClick={()=>showTask(rowData.id)}> Show Tasks</button>
+                &nbsp;&nbsp;
+                <button className="btn btn-secondary" onClick={() => {
+                    setEmployee(rowData)
+                    setVisible(true)
+                    }}> 
+                    Assign Task
+                    </button>
+
             </div>
         );
     };
@@ -59,16 +90,50 @@ function EmployeeList(){
     }
      
 
+    const headerElement = (
+        <div className="inline-flex align-items-center justify-content-center gap-2">
+             <span className="font-bold white-space-nowrap">Assign take to {employee?.name}</span>
+        </div>
+    );
+
+    const footerContent = (
+        <div>
+            
+            <Button label="Ok" icon="pi pi-check" onClick={() => assignTask()} autoFocus > Assign </Button>
+            &nbsp;&nbsp;&nbsp;
+            <button className="btn btn-danger " onClick={() => {setVisible(false)}}> Cancel</button>
+
+        </div>
+    );
+
     return (
         <div className="card" >
-        <DataTable value={list} paginator rows={5} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+        <DataTable value={data} paginator rows={2} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
                 header={header} emptyMessage="No customers found.">
-            <Column field="name" header="Name" filter filterPlaceholder="Search by name" style={{ minWidth: '8rem' }} />
-            <Column field="city" header="City" filterField="city" style={{ minWidth: '8rem' }}   filter filterPlaceholder="Search by City"  filterElement={cityRowFilter}/>
-            <Column field="salary" header="Salary" filterField="salary" style={{ minWidth: '8rem' }}  />
-            <Column  field="jobTitle" header="Job Title" filterField="jobTitle" style={{ minWidth: '12rem' }}  filter filterPlaceholder="Search by job Title" />
+            <Column field="id" header="System ID" style={{ minWidth: '8rem' }} />
+            <Column field="name" header="Name" filterPlaceholder="Search by name" style={{ minWidth: '8rem' }} />
+            <Column field="city" header="City"  style={{ minWidth: '8rem' }}   filterPlaceholder="Search by City"  filterElement={cityRowFilter}/>
+            <Column field="salary" header="Salary" style={{ minWidth: '8rem' }}  />
+            <Column  field="jobTitle" header="Job Title" filterField="jobTitle" style={{ minWidth: '12rem' }} filterPlaceholder="Search by job Title" />
             <Column header="Action"  body={actionBodyTemplate}> </Column>
           </DataTable>
+
+
+          <Dialog visible={visible} modal header={headerElement} footer={footerContent} style={{ width: '50rem' }} onHide={() => {if (!visible) return; setVisible(false); }}>
+                <p className="m-0">
+                <div>
+                <FloatLabel>
+                        <InputTextarea id="description"  onChange={(e)=>{setTaskDetails(e.target.value)}} rows={5} cols={88}/>
+                        <label htmlFor="description">Enter task details</label>
+                </FloatLabel>
+                </div>
+                <label>Enter Start and end date for the task: </label>
+                <br />
+                <div className="card flex justify-content-center">
+                <Calendar value={dates} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection   />
+                </div>
+                </p>
+            </Dialog>
     </div>
     )
 }
