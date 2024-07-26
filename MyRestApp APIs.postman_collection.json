@@ -271,7 +271,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8081/api/search/employee/manager/on",
+							"raw": "localhost:8081/api/search/employee/manager/harry",
 							"host": [
 								"localhost"
 							],
@@ -281,7 +281,7 @@
 								"search",
 								"employee",
 								"manager",
-								"on"
+								"harry"
 							]
 						}
 					},
@@ -321,6 +321,180 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GET : Tasks for Employee",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "severus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "severus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/task/16",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"task",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET: getEmployeeByManager",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/manager/employee",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"manager",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST: Task For Employee",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "severus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "severus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskDetails\" : \"task details\",\r\n    \"startDate\": \"2024-07-23\",\r\n    \"endDate\": \"2024-07-25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/task/employee/33",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"task",
+								"employee",
+								"33"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET: All Active Tasks",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "severus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "severus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/task/33",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"task",
+								"33"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET: Archive the task",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "severus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "severus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/task/archive/46",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"task",
+								"archive",
+								"46"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -328,7 +502,19 @@
 			"name": "GET ALL: Employee",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "severus@123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "severus@gmail.com",
+							"type": "string"
+						}
+					]
 				},
 				"method": "GET",
 				"header": [],
