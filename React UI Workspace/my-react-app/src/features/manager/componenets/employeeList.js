@@ -13,6 +13,7 @@ import { Dialog } from "primereact/dialog";
 import { InputTextarea } from "primereact/inputtextarea";
 import { FloatLabel } from "primereact/floatlabel";
 import { Calendar } from 'primereact/calendar';
+import axios from "axios";
 
 function EmployeeList(){
      const {list} = useSelector((state)=>state.employee)
@@ -27,7 +28,8 @@ function EmployeeList(){
     const [employee,setEmployee] = useState({});
     const [dates, setDates] = useState(null);
     const [taskDetails,setTaskDetails] = useState('');
-    
+    const [msg,setMsg] = useState(null);
+
     useEffect(()=>{
         setLoading(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,8 +40,26 @@ function EmployeeList(){
         console.log(dates)
         let startDate = new Date(dates[0]).toISOString().split("T")[0];
         let endDate = new Date(dates[1]).toISOString().split("T")[0];
+        let empId = employee.id; 
+        let data = {
+            'taskDetails': taskDetails,
+            'startDate': startDate,
+            'endDate': endDate  
+        }
 
-
+        axios.post('http://localhost:8081/api/task/employee/' + empId,
+            data,
+            {
+            headers: {
+                'Authorization': 'Basic ' + localStorage.getItem('token')
+            }
+        })
+        .then(resp=>{
+            setMsg("Task Assigned to " + employee.name + " successfully.")
+        })
+        .catch(err=>{
+            setMsg("Operation Failed, pls contack Admin")
+        })
     }
     const globalSearch = (val)=>{
         if(val === '')
@@ -90,9 +110,18 @@ function EmployeeList(){
      
 
     const headerElement = (
-        <div className="inline-flex align-items-center justify-content-center gap-2">
-             <span className="font-bold white-space-nowrap">Assign task to {employee?.name}</span>
-        </div>
+      <div className="inline-flex align-items-center justify-content-center gap-2">
+        <span className="font-bold white-space-nowrap">
+          Assign task to {employee?.name}
+            </span>
+            {msg === null ? (
+            ""
+            ) : (
+            <div class="alert alert-warning" role="alert">
+                {msg}
+            </div>
+            )}
+      </div>
     );
 
     const footerContent = (
