@@ -3,10 +3,12 @@ import Login from "./auth/login";
 import HR from "./features/hr/hr";
 import EmployeeOnBoarding from "./features/hr/components/employeeonboarding";
 import Manager from "./features/manager/manager";
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import store from "./store";
+import { getEmployees } from "./store/action/employee";
  
 function App() {
+  
    return(
     <div>
       <Provider store={store}>

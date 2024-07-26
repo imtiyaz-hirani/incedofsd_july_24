@@ -15,8 +15,8 @@ import { FloatLabel } from "primereact/floatlabel";
 import { Calendar } from 'primereact/calendar';
 
 function EmployeeList(){
-    const [data,setData] = useState([]);
      const {list} = useSelector((state)=>state.employee)
+     const [data,setData] = useState([...list]);
     const [filters,] = useState({
         name: { value: null, matchMode: FilterMatchMode.CUSTOM },
         city: { value: null, matchMode: FilterMatchMode.EQUALS },
@@ -30,7 +30,6 @@ function EmployeeList(){
     
     useEffect(()=>{
         setLoading(false)
-        setData(list);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]); 
 
@@ -40,7 +39,7 @@ function EmployeeList(){
         let startDate = new Date(dates[0]).toISOString().split("T")[0];
         let endDate = new Date(dates[1]).toISOString().split("T")[0];
 
-        
+
     }
     const globalSearch = (val)=>{
         if(val === '')
@@ -74,7 +73,7 @@ function EmployeeList(){
             <div className="flex align-items-center gap-2">
                 <button className="btn btn-info" onClick={()=>showTask(rowData.id)}> Show Tasks</button>
                 &nbsp;&nbsp;
-                <button className="btn btn-secondary" onClick={() => {
+                <button className="btn btn-warning" onClick={() => {
                     setEmployee(rowData)
                     setVisible(true)
                     }}> 
@@ -92,14 +91,15 @@ function EmployeeList(){
 
     const headerElement = (
         <div className="inline-flex align-items-center justify-content-center gap-2">
-             <span className="font-bold white-space-nowrap">Assign take to {employee?.name}</span>
+             <span className="font-bold white-space-nowrap">Assign task to {employee?.name}</span>
         </div>
     );
 
     const footerContent = (
         <div>
             
-            <Button label="Ok" icon="pi pi-check" onClick={() => assignTask()} autoFocus > Assign </Button>
+             <button className="btn btn-warning " onClick={() => assignTask()}> Assign</button>
+
             &nbsp;&nbsp;&nbsp;
             <button className="btn btn-danger " onClick={() => {setVisible(false)}}> Cancel</button>
 
@@ -108,8 +108,8 @@ function EmployeeList(){
 
     return (
         <div className="card" >
-        <DataTable value={data} paginator rows={2} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
-                header={header} emptyMessage="No customers found.">
+        <DataTable value={list} paginator rows={2} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
+                header={header} emptyMessage="No employees found.">
             <Column field="id" header="System ID" style={{ minWidth: '8rem' }} />
             <Column field="name" header="Name" filterPlaceholder="Search by name" style={{ minWidth: '8rem' }} />
             <Column field="city" header="City"  style={{ minWidth: '8rem' }}   filterPlaceholder="Search by City"  filterElement={cityRowFilter}/>
