@@ -25,10 +25,13 @@ function EmployeeList(){
     });
     const [loading,setLoading] = useState(true);
     const [visible, setVisible] = useState(false);
+    const [visibleTasks, setVisibleTasks] = useState(false);
+    
     const [employee,setEmployee] = useState({});
     const [dates, setDates] = useState(null);
     const [taskDetails,setTaskDetails] = useState('');
     const [msg,setMsg] = useState(null);
+    const [tasks,setTasks] = useState([]);
 
     useEffect(()=>{
         setLoading(false)
@@ -83,7 +86,14 @@ function EmployeeList(){
     };
 
     const showTask = (id)=>{
-        console.log(id)
+        axios.get('http://localhost:8081/api/task/' + id,{
+            headers: {
+                'Authorization': 'Basic ' + localStorage.getItem('token')
+            }
+        })
+        .then(resp=>{
+            setTasks(resp.data);
+        })
     }
 
     const header = renderHeader();
@@ -91,11 +101,17 @@ function EmployeeList(){
     const actionBodyTemplate = (rowData) => {
         return (
             <div className="flex align-items-center gap-2">
-                <button className="btn btn-info" onClick={()=>showTask(rowData.id)}> Show Tasks</button>
+                <button className="btn btn-info" onClick={()=>{
+                    setEmployee(rowData)
+                    setVisibleTasks(true);
+                    showTask(rowData.id);
+                    setMsg(null)
+                }}> Show Tasks</button>
                 &nbsp;&nbsp;
                 <button className="btn btn-warning" onClick={() => {
                     setEmployee(rowData)
                     setVisible(true)
+                    setMsg(null)
                     }}> 
                     Assign Task
                     </button>
@@ -130,41 +146,137 @@ function EmployeeList(){
              <button className="btn btn-warning " onClick={() => assignTask()}> Assign</button>
 
             &nbsp;&nbsp;&nbsp;
-            <button className="btn btn-danger " onClick={() => {setVisible(false)}}> Cancel</button>
+            <button className="btn btn-danger " onClick={() => {setVisible(false); setVisibleTasks(false)}}> Cancel</button>
 
         </div>
     );
 
+    const footerContentTask = (
+        <div>
+            
+ 
+            &nbsp;&nbsp;&nbsp;
+            <button className="btn btn-danger " onClick={() => {setVisible(false); setVisibleTasks(false)}}> Cancel</button>
+
+        </div>
+    );
+
+
     return (
-        <div className="card" >
-        <DataTable value={list} paginator rows={2} dataKey="id" filters={filters} filterDisplay="row" loading={loading}
-                header={header} emptyMessage="No employees found.">
-            <Column field="id" header="System ID" style={{ minWidth: '8rem' }} />
-            <Column field="name" header="Name" filterPlaceholder="Search by name" style={{ minWidth: '8rem' }} />
-            <Column field="city" header="City"  style={{ minWidth: '8rem' }}   filterPlaceholder="Search by City"  filterElement={cityRowFilter}/>
-            <Column field="salary" header="Salary" style={{ minWidth: '8rem' }}  />
-            <Column  field="jobTitle" header="Job Title" filterField="jobTitle" style={{ minWidth: '12rem' }} filterPlaceholder="Search by job Title" />
-            <Column header="Action"  body={actionBodyTemplate}> </Column>
-          </DataTable>
+      <div className="card">
+        <DataTable
+          value={list}
+          paginator
+          rows={2}
+          dataKey="id"
+          filters={filters}
+          filterDisplay="row"
+          loading={loading}
+          header={header}
+          emptyMessage="No employees found."
+        >
+          <Column field="id" header="System ID" style={{ minWidth: "8rem" }} />
+          <Column
+            field="name"
+            header="Name"
+            filterPlaceholder="Search by name"
+            style={{ minWidth: "8rem" }}
+          />
+          <Column
+            field="city"
+            header="City"
+            style={{ minWidth: "8rem" }}
+            filterPlaceholder="Search by City"
+            filterElement={cityRowFilter}
+          />
+          <Column field="salary" header="Salary" style={{ minWidth: "8rem" }} />
+          <Column
+            field="jobTitle"
+            header="Job Title"
+            filterField="jobTitle"
+            style={{ minWidth: "12rem" }}
+            filterPlaceholder="Search by job Title"
+          />
+          <Column header="Action" body={actionBodyTemplate}>
+            {" "}
+          </Column>
+        </DataTable>
 
+        <Dialog
+          visible={visible}
+          modal
+          header={headerElement}
+          footer={footerContent}
+          style={{ width: "50rem" }}
+          onHide={() => {
+            if (!visible) return;
+            setVisible(false);
+          }}
+        >
+          <p className="m-0">
+            <div>
+              <FloatLabel>
+                <InputTextarea
+                  id="description"
+                  onChange={(e) => {
+                    setTaskDetails(e.target.value);
+                  }}
+                  rows={5}
+                  cols={88}
+                />
+                <label htmlFor="description">Enter task details</label>
+              </FloatLabel>
+            </div>
+            <label>Enter Start and end date for the task: </label>
+            <br />
+            <div className="card flex justify-content-center">
+              <Calendar
+                value={dates}
+                onChange={(e) => setDates(e.value)}
+                selectionMode="range"
+                readOnlyInput
+                hideOnRangeSelection
+              />
+            </div>
+          </p>
+        </Dialog>
 
-          <Dialog visible={visible} modal header={headerElement} footer={footerContent} style={{ width: '50rem' }} onHide={() => {if (!visible) return; setVisible(false); }}>
-                <p className="m-0">
-                <div>
-                <FloatLabel>
-                        <InputTextarea id="description"  onChange={(e)=>{setTaskDetails(e.target.value)}} rows={5} cols={88}/>
-                        <label htmlFor="description">Enter task details</label>
-                </FloatLabel>
+        <Dialog
+          visible={visibleTasks}
+          modal
+          header={headerElement}
+          footer={footerContentTask}
+          style={{ width: "50rem" }}
+          onHide={() => {
+            if (!visibleTasks) return;
+            setVisibleTasks(false);
+          }}
+        >
+          <p className="m-0">
+            {tasks.map((t, index) => (
+              <div className="row" key={index}>
+                <div className="cols-lg-12">
+                  <div className="card mt-2">
+                    <div className="card-header">
+                    <div>Start Date: {t.startDate}
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                            End Date: {t.endDate}
+                        </div>
+                     </div>
+                    <div className="card-body">
+                        <p style={{fontSize: '1.3em', fontFamily: "monospace" } }>{t.taskDetails}</p>
+                    </div>
+                    <div className="card-footer">
+                        <button className="btn btn-danger">Archive</button>
+                    </div>
+                  </div>
                 </div>
-                <label>Enter Start and end date for the task: </label>
-                <br />
-                <div className="card flex justify-content-center">
-                <Calendar value={dates} onChange={(e) => setDates(e.value)} selectionMode="range" readOnlyInput hideOnRangeSelection   />
-                </div>
-                </p>
-            </Dialog>
-    </div>
-    )
+              </div>
+            ))}
+          </p>
+        </Dialog>
+      </div>
+    );
 }
 
 export default EmployeeList;

@@ -1,5 +1,7 @@
 package com.microservice.account.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class TaskService {
 		Employee employee = employeeRepository.findById(eid).get();
 		task.setEmployee(employee);
 		taskRepository.save(task);
+	}
+
+	public List<Task> getAllTask(int eid) {
+		
+		return taskRepository.findByEmployeeId(eid);
 	}
 
 }
