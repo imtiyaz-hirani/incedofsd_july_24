@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar({searchFn}){
 
   const [searchStr,setSearchStr] = useState();
+  const navigate = useNavigate();
 
   const upStateSearch = (e)=>{
     e.preventDefault();
     searchFn(searchStr)
+  }
+
+  const logout = ()=>{
+    localStorage.clear();
+    navigate('/?msg=looged_out')
   }
     return(
         <nav className="navbar navbar-expand-lg" data-bs-theme="light"  style={{ backgroundColor: '#e3f2fd', color: 'gray'}}>
@@ -23,13 +29,15 @@ function Navbar({searchFn}){
         </li>
         <li className="nav-item">
           <Link className="nav-link active" to="/manager-onboarding">Manager Onboarding</Link>
-        </li>
-         
+        </li>        
       </ul>
+      <span>Welcome {localStorage.getItem('username')} &nbsp;&nbsp;&nbsp;</span>
       <form className="d-flex"  role="search" onSubmit={(e)=>upStateSearch(e)}>
         <input className="form-control me-2"  placeholder="Search by name/city"  onChange={(e)=> setSearchStr(e.target.value)}></input>
         <button className="btn btn-outline-success" type="submit" >Search</button>
       </form>
+      &nbsp;&nbsp;
+      <button className="btn btn-secondary"  onClick={logout}>LogOut</button>
     </div>
   </div>
 </nav>
