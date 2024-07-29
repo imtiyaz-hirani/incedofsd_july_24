@@ -89,12 +89,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "albus@123",
+									"value": "harry@123",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "albus@gmail.com",
+									"value": "harry@gmail.com",
 									"type": "string"
 								}
 							]
@@ -491,6 +491,165 @@
 								"task",
 								"archive",
 								"46"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST: LEAVE",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "harry@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "harry@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reason\":\"Need to Attend Family Wedding\",\r\n    \"startDate\":\"2024-08-02\",\r\n    \"endDate\":\"2024-08-04\",\r\n    \"noOfDays\":3 \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/leave/post",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"leave",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETALL : LEAVE for Employee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "harry@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "harry@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8081/api/leave/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"leave",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE: Leave status",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "severus@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "severus@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/leave/update/49/APPROVE",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"leave",
+								"update",
+								"49",
+								"APPROVE"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE: Archive leave",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "harry@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "harry@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/leave/archive/49",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"leave",
+								"archive",
+								"49"
 							]
 						}
 					},
