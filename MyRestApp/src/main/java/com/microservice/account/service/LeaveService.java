@@ -1,5 +1,7 @@
 package com.microservice.account.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,18 @@ public class LeaveService {
 	@Autowired
 	private LeaveRepository leaveRepository;
 	
-	public void postLeave(Leave leave) {
-		leaveRepository.save(leave);
+	public Leave postLeave(Leave leave) {
+		return leaveRepository.save(leave);
 		
+	}
+
+	public List<Leave> getAllLeaves(String username) {
+		return leaveRepository.getAllLeaves(username);
+	}
+
+	public Leave getLeave(int leaveId) {
+		 
+		return leaveRepository.findById(leaveId).get();
 	}
 
 }

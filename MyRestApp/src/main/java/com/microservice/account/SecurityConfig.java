@@ -53,6 +53,10 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.GET,"/api/task/{eid}").hasAnyAuthority("MANAGER","EMPLOYEE")
             	.antMatchers(HttpMethod.GET,"/api/task/archive/{tid}").hasAuthority("MANAGER")
             	.antMatchers(HttpMethod.POST,"/api/leave/post").hasAuthority("EMPLOYEE")
+            	.antMatchers(HttpMethod.GET,"/api/leave/all").hasAuthority("EMPLOYEE")
+            	.antMatchers(HttpMethod.GET,"/api/leave/update/{leaveId}/{status}").hasAuthority("MANAGER")
+            	.antMatchers(HttpMethod.GET,"/api/leave/archive/{leaveId}").hasAuthority("EMPLOYEE")
+
             	
             	.anyRequest().permitAll()
             )
