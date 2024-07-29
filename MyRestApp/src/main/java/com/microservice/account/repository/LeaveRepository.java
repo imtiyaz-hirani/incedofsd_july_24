@@ -15,4 +15,11 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer>{
 			+ " where u.username=?1")
 	List<Leave> getAllLeaves(String username);
 
+	@Query("select l from Leave l "
+			+ " JOIN l.employee e "
+			+ " JOIN e.manager m "
+			+ " JOIN m.userInfo u "
+			+ " where u.username=?1")
+	List<Leave> getAllLeavesManager(String managerUsername);
+
 }

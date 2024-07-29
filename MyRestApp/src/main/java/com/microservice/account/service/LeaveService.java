@@ -1,5 +1,6 @@
 package com.microservice.account.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class LeaveService {
 	public Leave getLeave(int leaveId) {
 		 
 		return leaveRepository.findById(leaveId).get();
+	}
+
+	public List<Leave> getAllLeavesManager(String managerUsername) {
+		
+		return leaveRepository.getAllLeavesManager(managerUsername);
 	}
 
 }

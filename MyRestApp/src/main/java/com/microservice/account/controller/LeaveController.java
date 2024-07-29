@@ -48,8 +48,19 @@ public class LeaveController {
 				.filter(l->l.isArchive() == false)
 				.collect(Collectors.toList());
 		
-		return list; 
+		return list; 		
+	}
+	
+	@GetMapping("/api/manager/leave/all")
+	public List<Leave> getAllLeavesForManager(Principal principal){
+		String username = principal.getName();
 		
+		List<Leave> list = leaveService.getAllLeavesManager(username)
+				.stream()
+				.filter(l->l.isArchive() == false)
+				.collect(Collectors.toList());
+		
+		return list; 		
 	}
 	
 	@GetMapping("/api/leave/update/{leaveId}/{status}")
@@ -67,4 +78,6 @@ public class LeaveController {
 		leave.setArchive(true);
 		return leaveService.postLeave(leave);
 	}
+	
+	
 }

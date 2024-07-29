@@ -8,6 +8,7 @@ import store from "./store";
 import { getEmployees } from "./store/action/employee";
 import Employee from "./features/employee/employee";
 import LeaveDetails from "./features/employee/components/leaveList";
+import LeaveDetailsManager from "./features/manager/componenets/leaveDetails";
  
 function App() {
   
@@ -21,6 +22,8 @@ function App() {
           <Route path="/employee-onboarding" element={<EmployeeOnBoarding />}></Route>
           <Route path="/manager" element={<Manager />}></Route>
           <Route path="/employee-leave-details" element={<LeaveDetails />}></Route>
+          <Route path="/manager-leave-details" element={<LeaveDetailsManager />}></Route>
+
           
       </Routes>
       </Provider>
