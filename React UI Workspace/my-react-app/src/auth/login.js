@@ -38,7 +38,11 @@ function Login(){
               navigate('/manager');
               return; 
             }
-            
+            else
+            if(user.role === 'EMPLOYEE'){
+              navigate('/employee');
+              return; 
+            }
         })
         .catch(error=>{
              setErrorMsg('Invalid Credentials')

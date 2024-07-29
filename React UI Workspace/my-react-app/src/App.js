@@ -6,6 +6,8 @@ import Manager from "./features/manager/manager";
 import { Provider, useDispatch } from "react-redux";
 import store from "./store";
 import { getEmployees } from "./store/action/employee";
+import Employee from "./features/employee/employee";
+import LeaveDetails from "./features/employee/components/leaveList";
  
 function App() {
   
@@ -15,8 +17,11 @@ function App() {
       <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route path="/hr" element={<HR />}></Route>
+          <Route path="/employee" element={<Employee />}></Route>
           <Route path="/employee-onboarding" element={<EmployeeOnBoarding />}></Route>
           <Route path="/manager" element={<Manager />}></Route>
+          <Route path="/employee-leave-details" element={<LeaveDetails />}></Route>
+          
       </Routes>
       </Provider>
     </div>
