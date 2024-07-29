@@ -15,6 +15,9 @@ extends JpaRepository<Employee, Integer>{
 
 	@Query("select e from Employee e where e.name LIKE %?1% OR e.city LIKE %?1%")
 	List<Employee> searchEmployeeOnNameJpql(String searchStr);
+
+	@Query("select e from Employee e JOIN e.userInfo u where u.username=?1")
+	Employee getEmployeeByUsername(String username);
 }
 
 /*

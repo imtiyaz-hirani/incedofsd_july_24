@@ -63,6 +63,11 @@ public class EmployeeService {
 	 
 	}
 
+	public Employee getEmployeeByUsername(String username) {
+		
+		return employeeRepository.getEmployeeByUsername(username);
+	}
+
 }
 
 /* TO qualify for autowiring, EmployeeService must be a bean. 

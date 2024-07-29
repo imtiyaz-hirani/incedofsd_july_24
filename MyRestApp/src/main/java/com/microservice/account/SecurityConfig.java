@@ -52,7 +52,8 @@ public class SecurityConfig {
             	.antMatchers(HttpMethod.POST,"/api/task/employee/{eid}").hasAuthority("MANAGER")
             	.antMatchers(HttpMethod.GET,"/api/task/{eid}").hasAnyAuthority("MANAGER","EMPLOYEE")
             	.antMatchers(HttpMethod.GET,"/api/task/archive/{tid}").hasAuthority("MANAGER")
-
+            	.antMatchers(HttpMethod.POST,"/api/leave/post").hasAuthority("EMPLOYEE")
+            	
             	.anyRequest().permitAll()
             )
             .httpBasic(Customizer.withDefaults());
@@ -68,10 +69,10 @@ public class SecurityConfig {
 		ProviderManager manager = new ProviderManager(dao);
 		return manager; 
 	}
+	
 	@Bean
 	public PasswordEncoder getEncoder() {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder; 
 	}
-	 
 }
